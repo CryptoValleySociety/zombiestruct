@@ -13,12 +13,10 @@ contract('ZombieAttack', (accounts) => {
 
     var createRandomZombies = async () => {
         await contract.createRandomZombie("Banter", { from: account_one });
-
         await contract.createRandomZombie("Joker", { from: account_two });
-
+    
         var zombies1 = await contract.getZombiesByOwner.call(account_one);
         zombie_one = zombies1[0].toNumber();
-
         var zombies2 = await contract.getZombiesByOwner.call(account_two);
         zombie_two = zombies2[0].toNumber();
 
@@ -40,7 +38,7 @@ contract('ZombieAttack', (accounts) => {
             assert.equal(lossCount.toNumber(), 0, 'zombie should have no wins before attack')
 
             // var resultTx = await contract.attack.call(zombie_one, zombie_two, {from: account_one})
-            // TODO: call function without revert error
+            // TODO: call function without revert error https://github.com/OpenZeppelin/openzeppelin-solidity/issues/584
             // TODO: https://stackoverflow.com/questions/36627733/test-ethereum-event-logs-with-truffle LAST COMMENT
             // TODO: catch event value of win or loss and assert if value has changed
         })
