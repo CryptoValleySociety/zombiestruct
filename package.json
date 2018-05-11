@@ -1,0 +1,24 @@
+{
+  "name": "zombiestruct",
+  "version": "1.0.0",
+  "description": "Web3, Web3 tests, Truffle tests, infura integration",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CryptoValleySociety/zombiestruct.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CryptoValleySociety/zombiestruct/issues"
+  },
+  "homepage": "https://github.com/CryptoValleySociety/zombiestruct#readme",
+  "dependencies": {
+  }
+}
