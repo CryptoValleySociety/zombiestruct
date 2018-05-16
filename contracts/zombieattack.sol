@@ -13,6 +13,16 @@ contract ZombieAttack is ZombieHelper {
     return uint(keccak256(now, msg.sender, randNonce)) % _modulus;
   }
 
+  function getWinCount(uint _zombieId) external view returns(uint) {
+    Zombie storage myZombie = zombies[_zombieId];
+    return myZombie.winCount;
+  }
+
+  function getLossCount(uint _zombieId) external view returns(uint) {
+    Zombie storage myZombie = zombies[_zombieId];
+    return myZombie.lossCount;
+  }
+
   function attack(uint _zombieId, uint _targetId) external onlyOwnerOf(_zombieId) returns(uint) {
     Zombie storage myZombie = zombies[_zombieId];
     Zombie storage enemyZombie = zombies[_targetId];
