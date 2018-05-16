@@ -1,4 +1,4 @@
-var ZombieAttack = artifacts.require("./zombieattack.sol");
+const ZombieAttack = artifacts.require("./zombieattack.sol");
 
 contract('ZombieAttack', (accounts) => {
     const account_one = accounts[0];
@@ -16,9 +16,9 @@ contract('ZombieAttack', (accounts) => {
         await contract.createRandomZombie("Joker", { from: account_two });
     
         const zombies1 = await contract.getZombiesByOwner.call(account_one);
-        zombie_one = zombies1[0].toNumber();
+        zombie_one = zombies1[zombies1.length - 1].toNumber();
         const zombies2 = await contract.getZombiesByOwner.call(account_two);
-        zombie_two = zombies2[0].toNumber();
+        zombie_two = zombies2[zombies1.length - 1].toNumber();
 
         assert.equal(zombie_one, 0, "Zombie with ID 0 not owned by first account");
         assert.equal(zombie_two, 1, "Zombie with ID 1 not owned by second account");
@@ -37,10 +37,8 @@ contract('ZombieAttack', (accounts) => {
             assert.equal(winCount.toNumber(), 0, 'zombie should have no wins before attack')
             assert.equal(lossCount.toNumber(), 0, 'zombie should have no wins before attack')
 
-            // var resultTx = await contract.attack.call(zombie_one, zombie_two, {from: account_one})
-            // TODO: call function without revert error https://github.com/OpenZeppelin/openzeppelin-solidity/issues/584
-            // TODO: https://stackoverflow.com/questions/36627733/test-ethereum-event-logs-with-truffle LAST COMMENT
-            // TODO: catch event value of win or loss and assert if value has changed
+            var resultTx = await contract.attack.call(zombie_one, zombie_two, {from: account_one})
+            assert.equal(resultTx.toNumber(), 1, 'zombie should have 1 win/loss after attack')
         })
     })
 });
