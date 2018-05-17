@@ -1,6 +1,6 @@
 pragma solidity ^0.4.19;
 
-import "./zombiefeeding.sol";
+import "./zombieFeeding.sol";
 
 contract ZombieHelper is ZombieFeeding {
 
