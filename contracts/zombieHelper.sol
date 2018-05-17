@@ -45,5 +45,3 @@ contract ZombieHelper is ZombieFeeding {
   }
 
 }
-
-
