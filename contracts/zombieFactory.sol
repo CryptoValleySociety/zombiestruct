@@ -27,11 +27,12 @@ contract ZombieFactory is Ownable {
   mapping (uint => address) public zombieToOwner;
   mapping (address => uint) ownerZombieCount;
 
-  function _createZombie(string _name, uint _dna) internal {
+  function _createZombie(string _name, uint _dna) internal returns (uint) {
     uint id = zombies.push(Zombie(_name, _dna, 1, uint32(now + cooldownTime), 0, 0)) - 1;
     zombieToOwner[id] = msg.sender;
     ownerZombieCount[msg.sender]++;
     NewZombie(id, _name, _dna);
+    return id;
   }
 
   function _generateRandomDna(string _str) private view returns (uint) {
@@ -39,11 +40,13 @@ contract ZombieFactory is Ownable {
     return rand % dnaModulus;
   }
 
-  function createRandomZombie(string _name) public {
+  function createRandomZombie(string _name) public returns (uint) {
     require(ownerZombieCount[msg.sender] == 0);
     uint randDna = _generateRandomDna(_name);
     randDna = randDna - randDna % 100;
-    _createZombie(_name, randDna);
+    uint zombieId = _createZombie(_name, randDna);
+    return zombieId;
+
   }
 
 }

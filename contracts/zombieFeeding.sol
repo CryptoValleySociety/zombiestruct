@@ -59,11 +59,11 @@ contract ZombieFeeding is ZombieFactory {
 
   /* FUNCTIONS ARE HELPER FUNCTIONS FOR TESTING */
 
-    /* function getKitty(uint256 _kittyId) public view returns(uint) {
-      uint kittyDna;
-      (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
-      return kittyDna;
-    } */
+  function getKitty(uint256 _kittyId) public returns(uint) {
+    uint kittyDna;
+    (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
+    return kittyDna;
+  }
 
 
 }
