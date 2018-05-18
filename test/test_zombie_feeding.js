@@ -25,16 +25,15 @@ contract('ZombieFeeding', (accounts) => {
     // first need to create a Zombie
     const createZombie = async () => {
       await contract.createRandomZombie('Mohammad', { from: accountOne })
-
     }
 
 
     it("setKittyContractAddress test", async () => {
         await createZombie()
         // if I get a DNA then the contract is set
-        // await contract.setKittyContractAddress(kittyContractAddress)
-        // const kittyDna = await contract.getKitty(1)
-        // console.log(kittyDna.toNumber());
+        await contract.setKittyContractAddress(kittyContractAddress)
+        const kittyDna = await contract.getKittyDna(1)
+        console.log(kittyDna.toNumber());
         // assert.notEqual(kittyDna, null)
     })
 
