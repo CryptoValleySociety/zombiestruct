@@ -14,26 +14,26 @@ contract('ZombieFeeding', (accounts) => {
   beforeEach(async ()  => {
         // returns instance of deployed contract
         contract = await ZombieFeeding.deployed()
-        // helperContract = await ZombieHelper.deployed()
     });
 
     const zombieByOwner = async (owner) => {
+      helperContract = await ZombieHelper.deployed()
       const ownerZombie = await helperContract.getZombiesByOwner.call(owner)
       return ownerZombie
     }
 
     // first need to create a Zombie
     const createZombie = async () => {
-      newZombie = await contract.createRandomZombie('Mohammad', { from: accountOne })
-      console.log(newZombie);
+      await contract.createRandomZombie('Mohammad', { from: accountOne })
+
     }
 
 
     it("setKittyContractAddress test", async () => {
-        // await createZombie()
+        await createZombie()
         // if I get a DNA then the contract is set
-        await contract.setKittyContractAddress(kittyContractAddress)
-        const kittyDna = await contract.getKitty(1)
+        // await contract.setKittyContractAddress(kittyContractAddress)
+        // const kittyDna = await contract.getKitty(1)
         // console.log(kittyDna.toNumber());
         // assert.notEqual(kittyDna, null)
     })
