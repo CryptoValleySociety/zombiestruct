@@ -1,10 +1,6 @@
 let ZombieHelper = artifacts.require("ZombieAttack");
 
-<<<<<<< HEAD
 contract("ZombieAttack",(accounts)=> {
-=======
-contract("ZombieAttack", function(accounts) {
->>>>>>> e567ec9ff3aa8460c02c03e8c52f7f0756c95dc0
   let account_one = accounts[0];
   let account_two = accounts[1];
   let id1=-1;
@@ -18,11 +14,7 @@ contract("ZombieAttack", function(accounts) {
   //get the level of a zombie with specific id
   //returns -1 if it fails
   let getZombieLevel = (id) => {
-<<<<<<< HEAD
     return ZombieHelper.deployed().then((instance)=>{
-=======
-    return ZombieHelper.deployed().then(function(instance){
->>>>>>> e567ec9ff3aa8460c02c03e8c52f7f0756c95dc0
       zombieCon = instance;
       return zombieCon.zombies.call(id).then((result)=>{return result[2].toNumber();}).catch(()=>{return -1});
     });
@@ -31,11 +23,7 @@ contract("ZombieAttack", function(accounts) {
   //get the name of a zombie with specific id
   //returns "" if it fails
   let getZombieName = (id) =>{
-<<<<<<< HEAD
     return ZombieHelper.deployed().then((instance)=>{
-=======
-    return ZombieHelper.deployed().then(function(instance){
->>>>>>> e567ec9ff3aa8460c02c03e8c52f7f0756c95dc0
       zombieCon = instance;
       return zombieCon.zombies.call(id).then((result)=>{return result[0];}).catch(()=>{return ""});
     });
@@ -44,27 +32,16 @@ contract("ZombieAttack", function(accounts) {
   //get the dna of a zombie with specific id
   //returns -1 if it fails
   let getZombieDna = (id) =>{
-<<<<<<< HEAD
     return ZombieHelper.deployed().then((instance)=>{
-=======
-    return ZombieHelper.deployed().then(function(instance){
->>>>>>> e567ec9ff3aa8460c02c03e8c52f7f0756c95dc0
       zombieCon = instance;
       return zombieCon.zombies.call(id).then((result)=>{return result[1].toNumber();}).catch(()=>{return -1});
     });
   }
 
-<<<<<<< HEAD
   it("Should add and check existance of two zombies", async () =>{
     await zombieCon.createRandomZombie("Simon",{from: account_one}).then(()=>{
       return zombieCon.createRandomZombie("My friend",{from: account_two});
     }).then(()=>{
-=======
-  it("Should add and check existance of two zombies", async function() {
-    await zombieCon.createRandomZombie("Simon",{from: account_one}).then(function(){
-      return zombieCon.createRandomZombie("My friend",{from: account_two});
-    }).then(function(){
->>>>>>> e567ec9ff3aa8460c02c03e8c52f7f0756c95dc0
       return zombieCon.getZombiesByOwner.call(account_one);
     }).then((zombies1)=>{
       id1=zombies1[0].toNumber();
@@ -76,11 +53,7 @@ contract("ZombieAttack", function(accounts) {
     });
   });
 
-<<<<<<< HEAD
   it("Should successfully level up two zombies, change the fee and fail if fee is not enough", async () =>{
-=======
-  it("Should successfully level up two zombies, change the fee and fail if fee is not enough", async function() {
->>>>>>> e567ec9ff3aa8460c02c03e8c52f7f0756c95dc0
     let i;
 
     for(i=0;i<19;i++){
@@ -91,11 +64,7 @@ contract("ZombieAttack", function(accounts) {
     await zombieCon.levelUp(1,{from:account_two,value:web3.toWei(0.01,"ether")});
 
     let levelUp;
-<<<<<<< HEAD
     await zombieCon.levelUp(1,{from:account_two,value:web3.toWei(0.001,"ether")}).then(()=>{levelUp=true;}).catch(()=>{levelUp=false;});
-=======
-    await zombieCon.levelUp(1,{from:account_two,value:web3.toWei(0.001,"ether")}).then(function(){levelUp=true;}).catch(function(){levelUp=false;});
->>>>>>> e567ec9ff3aa8460c02c03e8c52f7f0756c95dc0
     assert.equal(levelUp,false,"Somehow leveled up with not enough fee");
 
     getZombieLevel(0).then(function(lvl){
@@ -122,20 +91,12 @@ contract("ZombieAttack", function(accounts) {
     });
   });
 
-<<<<<<< HEAD
   it("Should withdraw all the ether placed into the contract",()=>{
-=======
-  it("Should withdraw all the ether placed into the contract",function(){
->>>>>>> e567ec9ff3aa8460c02c03e8c52f7f0756c95dc0
     let weiInContract = web3.eth.getBalance(ZombieHelper.address);
     let initBal=web3.eth.getBalance(account_one);
     let finalBal;
 
-<<<<<<< HEAD
     zombieCon.withdraw({from:account_one}).then((result)=>{
-=======
-    zombieCon.withdraw({from:account_one}).then(function(result){
->>>>>>> e567ec9ff3aa8460c02c03e8c52f7f0756c95dc0
       let gas=result.receipt.gasUsed*(10**11);
       finalBal=new web3.BigNumber(web3.eth.getBalance(account_one));
       let expected=weiInContract.minus(gas);
