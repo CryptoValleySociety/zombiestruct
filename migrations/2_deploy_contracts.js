@@ -1,8 +1,8 @@
-// var ConvertLib = artifacts.require("./ConvertLib.sol");
-// var MetaCoin = artifacts.require("./MetaCoin.sol");
+const  ZombieAttack=artifacts.require("ZombieAttack");
+const SafeMath=artifacts.require("SafeMath");
 
-// module.exports = function(deployer) {
-//   deployer.deploy(ConvertLib);
-//   deployer.link(ConvertLib, MetaCoin);
-//   deployer.deploy(MetaCoin);
-// };
+module.exports = function(deployer) {
+  deployer.deploy(SafeMath);
+  deployer.link(SafeMath, [ZombieAttack]);
+  deployer.deploy(ZombieAttack);
+};
