@@ -1,8 +1,26 @@
-// var ConvertLib = artifacts.require("./ConvertLib.sol");
-// var MetaCoin = artifacts.require("./MetaCoin.sol");
+const ZombieAttack = artifacts.require("zombieattack");
+const Ownable = artifacts.require("Ownable");
+const SafeMath = artifacts.require("SafeMath");
+const { updateContracts } = require('../app/addresses/contracts');
 
-// module.exports = function(deployer) {
-//   deployer.deploy(ConvertLib);
-//   deployer.link(ConvertLib, MetaCoin);
-//   deployer.deploy(MetaCoin);
-// };
+const updateContractAddress = (contract) => {
+  updateContracts(contract)
+}
+
+module.exports = function(deployer) {
+  deployer.deploy(SafeMath)
+  .then(() => {
+    deployer.link(SafeMath, [ZombieAttack, Ownable]);
+    return deployer.deploy(Ownable);
+  })
+  .then(() => {
+    deployer.link(Ownable, ZombieAttack);
+    return deployer.deploy(ZombieAttack);
+  })
+  .then(() => {
+    updateContractAddress(ZombieAttack.address)
+  })
+  .catch((e) => {
+    console.log('ERROR IN DEPLOYMENT....', e)
+  })
+};
