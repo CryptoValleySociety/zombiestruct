@@ -51,14 +51,17 @@
   "dependencies": {
     "child_process": "^1.0.2",
     "dotenv": "^2.0.0",
+    "express": "^4.16.3",
     "mocha": "^5.2.0",
+    "path": "^0.12.7",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "tempstart": "node server/server.js"
   },
   "jest": {
     "collectCoverageFrom": [
