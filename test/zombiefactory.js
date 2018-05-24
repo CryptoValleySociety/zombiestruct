@@ -2,38 +2,36 @@ var ZombieFactory = artifacts.require("ZombieFactory");
 
 contract("ZombieFactory", function(accounts) {
 
-	var account_one = accounts[0];
+	const account_one = accounts[0];
+	const account_two = accounts[1];
+	const name = "Name"
+	let contract;
 
-	it("should have a working empty test", function() {
-		return ZombieFactory.deployed().then(function() {
-			assert.equal(0, 0, "Dummy test should never fail.");
-		});
+	beforeEach(async () => {
+        contract = await ZombieFactory.deployed();
 	});
 
-	it("createZombie extends the zombies array by one", async function() {
-		var preLength;
-		var zfInstance;
-		await ZombieFactory.deployed().
-		then(function(instance) {
-			zfInstance = instance;
-			// Get the number of zombies before the create call
-			return zfInstance.getNumberOfZombies.call().catch(function(e) {
-				console.log("Error getting number of zombies.");
-			});
-		}).then(function(length) {
-			preLength = length.toNumber();
-			// Create a new random zombie
-			return zfInstance.createRandomZombie("Test", {from: account_one}).catch(function(e) {
-				console.log("Error while creating random zombie");
-			});
-		}).then(function() {
-			// Get the new length
-			return zfInstance.getNumberOfZombies.call().catch(function(e) {
-				console.log("Error getting number of zombies.");
-			});
-		}).then(function(postLength) {
-			assert.equal(preLength + 1, postLength.toNumber(), "createRandomZombie did not increase the array length by one.");
-		});
+	it("extends the zombies array by exactly one with createRandomZombie", async () =>  {
+		let preLength = (await contract.getNumberOfZombies.call()).toNumber()
+		await contract.createRandomZombie(name, {from: account_one})	
+		let postLength = (await contract.getNumberOfZombies.call()).toNumber()
+		assert.equal(preLength + 1, postLength, "createRandomZombie did not increase the array length by one.");
+	});
+
+	it("creates a new zombie with the given name in createRandomZombie", async () => {
+		let zombie = (await contract.zombies.call(0))
+
+		// The call does not return the struct but rather an array of members.
+		// Since "name" is the first member of the struct it is the first entry of the array.
+		assert.equal(name, zombie[0], "createRandomZombie did not create a zombie with the specified name.")
 
 	});
+
+	it("creates zombies with equal DNA for equivalent names", async () => {
+		await contract.createRandomZombie(name, {from: account_two})
+		let oldZombie = (await contract.zombies.call(0))
+		let newZombie = (await contract.zombies.call(1))
+
+		assert.equal(oldZombie[1].toNumber(), newZombie[1].toNumber(), "createRandomZombie did not create two zombies with equal DNA for the same name")
+	})
 });
