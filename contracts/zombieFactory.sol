@@ -46,4 +46,8 @@ contract ZombieFactory is Ownable {
     _createZombie(_name, randDna);
   }
 
+  function getNumberOfZombies() public view returns (uint) {
+    return zombies.length;
+  }
+
 }
