@@ -1,4 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Mo from './components/mo';
+import Seb from './components/seb';
+import Simon from './components/simon';
+import Alex from './components/alex';
 
 import './App.css'
 
@@ -6,11 +10,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>This is an app</h1>
-        <div className="segment" id="simon"></div>
-        <div className="segment" id="seb"></div>
-        <div className="segment" id="mo"></div>
-        <div className="segment" id="alex"></div>
+        <Seb />
+        <Mo />
+        <Simon />
+        <Alex />
       </div>
     );
   }
