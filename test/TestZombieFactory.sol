@@ -1,19 +1,13 @@
 pragma solidity ^0.4.17;
 
+import "truffle/Assert.sol";
+import "truffle/DeployedAddresses.sol";
 import "../contracts/zombieFactory.sol";
 
-contract TestrandomDna {
-  
-
-// Testing the generateRandomDna() function
-
-function testgenerateRandomDna() internal {
-  
-  uint returnedrandom = rand % dnaModulus;
-
-  uint expected = //16 digits long;
-
-  Assert.equal(returnedrandom, expected, "Number should be 16 digits long");
-}
-
+contract TestZombiefactory {
+	function testDummySolidity() public {
+		uint A = 1;
+		uint B = 1;
+		Assert.equal(A, B, "Dummy test failed.");
+	}
 }
