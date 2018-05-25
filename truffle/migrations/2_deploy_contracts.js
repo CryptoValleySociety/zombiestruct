@@ -1,7 +1,7 @@
 const ZombieAttack = artifacts.require("zombieattack");
 const Ownable = artifacts.require("Ownable");
 const SafeMath = artifacts.require("SafeMath");
-const { updateContracts } = require('../app/addresses/contracts');
+const { updateContracts } = require('../../web3/addresses/contracts');
 
 const updateContractAddress = (contract) => {
   updateContracts(contract)

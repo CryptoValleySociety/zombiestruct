@@ -1,0 +1,57 @@
+.App {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+.segment {
+    flex: 0 0 50%;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    padding: 0.5rem;
+    box-sizing: border-box;
+}
+
+#seb {
+    background-color: orange;
+}
+
+#simon {
+    background-color: bisque;
+}
+
+#mo {
+    background-color: yellowgreen;
+}
+
+#alex {
+    background-color: royalblue;
+}
+
+#data {
+	position: relative;
+    top: 30%;
+	height: 20px;
+}
+
+#button {
+    height: 50px;
+    width: 100px;
+    top: 77%;
+    left: -14%;
+    position: relative;
+}
+
+html, body
+{
+    height: 100%;
+    width: 100%;
+}
+
+#root {
+    height: 100%;
+    width: 100%;
+}
