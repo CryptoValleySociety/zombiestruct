@@ -130,6 +130,7 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         include: [paths.appSrc, paths.web3Src],
+
         loader: 'babel',
         query: {
           presets: ['es2015'],
