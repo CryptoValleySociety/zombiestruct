@@ -1,4 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import web3 from '../../web3/providers/index';
+import ZombieAttackAbi from '../../truffle/build/contracts/ZombieAttack.json';
+import {contracts} from '../../web3/addresses/contracts';
 
 import '../App.css'
 
@@ -7,21 +10,27 @@ class Alex extends Component {
         super(props)
 
         this.state = {
-            data: 'this is my data as a react state'
+            data: 'this is my data as a react state',
+            contract: ''
         }
     }
 
     componentDidMount() {
-        // initiate contract
-        // call function retrieve data
-        console.log('component mounted')
+        // web3.default.setProvider(new web3.default.providers.HttpProvider('http://localhost:8545'))
+        this.instantiateContract();
     }
 
-    updateData() {
-        //call the blockchain to revtrieve my data
-        var newData = "this is a change"
-        this.setState({data: newData})
+    instantiateContract() {
+        const zombieAttackContract = new web3.default.eth.Contract(ZombieAttackAbi.abi, contracts.upperApp)
+        console.log('contract', zombieAttackContract)
+        this.setState({contract: zombieAttackContract})
+        // this.createZombie()
     }
+
+    // async createZombie() {
+    //     //call the blockchain to revtrieve my data
+    //     await this.state.contract.methods.createRandomZombie("Banter", { from: '0x7c8a642e4174e7b60a80bba0732fbd9998eeb070' });
+    // }
 
     callFunction() {
         console.log('hello')
