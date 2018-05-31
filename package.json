@@ -60,9 +60,13 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "babel-preset-env": "^1.7.0",
 =======
 >>>>>>> Add async to babel
+=======
+    "babel-preset-env": "^1.7.0",
+>>>>>>> ADD Smart Contract instantiated function
     "child_process": "^1.0.2",
     "dotenv": "^2.0.0",
     "express": "^4.16.3",

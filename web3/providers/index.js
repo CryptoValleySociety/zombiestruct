@@ -11,6 +11,7 @@ if(test) {
 }
 
 export default web3
+<<<<<<< HEAD
 
 // if (typeof web3 !== 'undefined') {
 //     // Use Mist/MetaMask's provider
@@ -39,3 +40,5 @@ export default web3
 //     // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
 //     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 // }
+=======
+>>>>>>> ADD Smart Contract instantiated function
