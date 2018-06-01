@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import web3 from '../../web3/providers/index'
+<<<<<<< HEAD
 
 import ZombieFeeding from '../../truffle/build/contracts/ZombieFeeding.json'
+=======
+import ZombieAttack from '../../truffle/build/contracts/ZombieAttack.json'
+>>>>>>> ADD create zombie, event listener, still in progress
 
 import '../App.css'
 
@@ -21,13 +25,26 @@ class Mo extends Component {
 
     }
 
-    createContract() {
-      const ZombieFeedingContract = new web3.default.eth.Contract(ZombieFeeding.abi)
-      console.log('contract', ZombieFeedingContract)
-      // this.setState({contract: ZombieFeeding})
-      // console.log('component mounted')
+
+    async createContract() {
+      const MainContract = new web3.default.eth.Contract(ZombieAttack.abi, '0x97c181a8e6dda4a91d01f650d3ae60170a798fb4')
+      console.log(MainContract)
+      const accounts = await web3.default.eth.getAccounts()
+      this.setState({
+        contract: MainContract,
+        account: accounts
+      })
+      await this.listen()
     }
 
+    async listen() {
+      const { contract } = this.state
+      console.log(contract);
+      const { _address } = contract
+      const createZombieEvent = contract.at(_address)
+    }
+
+<<<<<<< HEAD
 
     async createContract() {
       const MainContract = new web3.default.eth.Contract(ZombieAttack.abi, '0x97c181a8e6dda4a91d01f650d3ae60170a798fb4')
@@ -61,7 +78,7 @@ class Mo extends Component {
         await this.createZombie();
         // call function
         // wait for reciept then call retrieve data function
-        this.updateData();
+        this.createZombie();
     }
 
     render() {
