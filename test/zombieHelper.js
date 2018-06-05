@@ -14,19 +14,13 @@ contract("ZombieAttack",(accounts)=> {
   //get the level of a zombie with specific id
   //returns -1 if it fails
   let getZombieLevel = (id) => {
-    return ZombieHelper.deployed().then((instance)=>{
-      zombieCon = instance;
-      return zombieCon.zombies.call(id).then((result)=>{return result[2].toNumber();}).catch(()=>{return -1});
-    });
+    return zombieCon.zombies.call(id).then((result)=>{return result[2].toNumber();}).catch(()=>{return -1});
   }
 
   //get the name of a zombie with specific id
   //returns "" if it fails
   let getZombieName = (id) =>{
-    return ZombieHelper.deployed().then((instance)=>{
-      zombieCon = instance;
-      return zombieCon.zombies.call(id).then((result)=>{return result[0];}).catch(()=>{return ""});
-    });
+    return zombieCon.zombies.call(id).then((result)=>{return result[0];}).catch(()=>{return ""});
   }
 
   //get the dna of a zombie with specific id
