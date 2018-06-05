@@ -26,25 +26,18 @@ contract("ZombieAttack",(accounts)=> {
   //get the dna of a zombie with specific id
   //returns -1 if it fails
   let getZombieDna = (id) =>{
-    return ZombieHelper.deployed().then((instance)=>{
-      zombieCon = instance;
-      return zombieCon.zombies.call(id).then((result)=>{return result[1].toNumber();}).catch(()=>{return -1});
-    });
+    return zombieCon.zombies.call(id).then((result)=>{return result[1].toNumber();}).catch(()=>{return -1});
   }
 
   it("Should add and check existance of two zombies", async () =>{
-    await zombieCon.createRandomZombie("Simon",{from: account_one}).then(()=>{
-      return zombieCon.createRandomZombie("My friend",{from: account_two});
-    }).then(()=>{
-      return zombieCon.getZombiesByOwner.call(account_one);
-    }).then((zombies1)=>{
-      id1=zombies1[0].toNumber();
-      return zombieCon.getZombiesByOwner.call(account_two);
-    }).then((zombies2)=>{
-      id2=zombies2[0].toNumber();
-      assert.equal(id1,0,"Zombie with ID 0 not owned by first account");
-      assert.equal(id2,1,"Zombie with ID 1 not owned by second account");
-    });
+    await zombieCon.createRandomZombie("Simon",{from: account_one});
+    await zombieCon.createRandomZombie("My friend",{from: account_two});
+    const zombies1=zombieCon.getZombiesByOwner.call(account_one);
+    id1=zombies1[0].toNumber();
+    const zombies2=zombieCon.getZombiesByOwner.call(account_two);
+    id2=zombies2[0].toNumber();
+    assert.equal(id1,0,"Zombie with ID 0 not owned by first account");
+    assert.equal(id2,1,"Zombie with ID 1 not owned by second account");
   });
 
   it("Should successfully level up two zombies, change the fee and fail if fee is not enough", async () =>{
@@ -86,16 +79,16 @@ contract("ZombieAttack",(accounts)=> {
   });
 
   it("Should withdraw all the ether placed into the contract",()=>{
-    let weiInContract = web3.eth.getBalance(ZombieHelper.address);
-    let initBal=web3.eth.getBalance(account_one);
+    const weiInContract = web3.eth.getBalance(ZombieHelper.address);
+    const initBal=web3.eth.getBalance(account_one);
     let finalBal;
 
     zombieCon.withdraw({from:account_one}).then((result)=>{
-      let gas=result.receipt.gasUsed*(10**11);
+      const gas=result.receipt.gasUsed*(10**11);
       finalBal=new web3.BigNumber(web3.eth.getBalance(account_one));
-      let expected=weiInContract.minus(gas);
-      let whatIgot=finalBal.minus(initBal);
-      let difference=expected.minus(whatIgot).toNumber();
+      const expected=weiInContract.minus(gas);
+      const whatIgot=finalBal.minus(initBal);
+      const difference=expected.minus(whatIgot).toNumber();
       assert.equal(difference,0,"Didnt get the right amount of ether from the contract");
     });
   });
