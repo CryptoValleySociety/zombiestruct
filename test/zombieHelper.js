@@ -32,9 +32,9 @@ contract("ZombieAttack",(accounts)=> {
   it("Should add and check existance of two zombies", async () =>{
     await zombieCon.createRandomZombie("Simon",{from: account_one});
     await zombieCon.createRandomZombie("My friend",{from: account_two});
-    const zombies1=zombieCon.getZombiesByOwner.call(account_one);
+    const zombies1=await zombieCon.getZombiesByOwner.call(account_one);
     id1=zombies1[0].toNumber();
-    const zombies2=zombieCon.getZombiesByOwner.call(account_two);
+    const zombies2=await zombieCon.getZombiesByOwner.call(account_two);
     id2=zombies2[0].toNumber();
     assert.equal(id1,0,"Zombie with ID 0 not owned by first account");
     assert.equal(id2,1,"Zombie with ID 1 not owned by second account");
@@ -54,15 +54,14 @@ contract("ZombieAttack",(accounts)=> {
     await zombieCon.levelUp(1,{from:account_two,value:web3.toWei(0.001,"ether")}).then(()=>{levelUp=true;}).catch(()=>{levelUp=false;});
     assert.equal(levelUp,false,"Somehow leveled up with not enough fee");
 
-    getZombieLevel(0).then(function(lvl){
-      assert.equal(lvl,20,"1st Zombie not leveled up to lvl 20");
-    });
-    getZombieLevel(1).then(function(lvl){
-      assert.equal(lvl,2,"2nd Zombie not leveled up to lvl 2");
-    });
+    const lvl1=await getZombieLevel(0)
+    assert.equal(lvl1,20,"1st Zombie not leveled up to lvl 20");
+
+    const lvl2=await getZombieLevel(1)
+    assert.equal(lvl2,2,"2nd Zombie not leveled up to lvl 2");
   });
 
-  it("Should change name and dna of zombie and fail if level is too low",async function(){
+  it("Should change name and dna of zombie and fail if level is too low",async ()=>{
     await zombieCon.changeDna(0,123456789,{from:account_one});
     await zombieCon.changeName(1,"New Name",{from:account_two});
 
@@ -70,26 +69,23 @@ contract("ZombieAttack",(accounts)=> {
     await zombieCon.changeDna(1,123456789,{from:account_two}).then(function(){dnaChanged=true;}).catch(function(){dnaChanged=false;});
     assert.equal(dnaChanged,false,"Changed DNA of zombie even though lvl was too low");
 
-    getZombieDna(0).then(function(dna){
-      assert.equal(dna,123456789,"1st Zombie didnt change DNA");
-    });
-    getZombieName(1).then(function(name){
-      assert.equal(name,"New Name","2nd Zombie didnt change name");
-    });
+    const dna=await getZombieDna(0);
+    assert.equal(dna,123456789,"1st Zombie didnt change DNA");
+    const name=await getZombieName(1);
+    assert.equal(name,"New Name","2nd Zombie didnt change name");
   });
 
-  it("Should withdraw all the ether placed into the contract",()=>{
+  it("Should withdraw all the ether placed into the contract",async ()=>{
     const weiInContract = web3.eth.getBalance(ZombieHelper.address);
     const initBal=web3.eth.getBalance(account_one);
     let finalBal;
 
-    zombieCon.withdraw({from:account_one}).then((result)=>{
-      const gas=result.receipt.gasUsed*(10**11);
-      finalBal=new web3.BigNumber(web3.eth.getBalance(account_one));
-      const expected=weiInContract.minus(gas);
-      const whatIgot=finalBal.minus(initBal);
-      const difference=expected.minus(whatIgot).toNumber();
-      assert.equal(difference,0,"Didnt get the right amount of ether from the contract");
-    });
+    const txResult=await zombieCon.withdraw({from:account_one})
+    const gas=txResult.receipt.gasUsed*(10**11);
+    finalBal=new web3.BigNumber(web3.eth.getBalance(account_one));
+    const expected=weiInContract.minus(gas);
+    const whatIgot=finalBal.minus(initBal);
+    const difference=expected.minus(whatIgot).toNumber();
+    assert.equal(difference,0,"Didnt get the right amount of ether from the contract");
   });
 });
