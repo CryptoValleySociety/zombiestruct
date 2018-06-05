@@ -1,5 +1,4 @@
 const ZombieAttack = artifacts.require("zombieattack");
-const Ownable = artifacts.require("Ownable");
 const SafeMath = artifacts.require("SafeMath");
 const { updateContracts } = require('../../web3/addresses/contracts');
 
@@ -10,11 +9,7 @@ const updateContractAddress = (contract) => {
 module.exports = function(deployer) {
   deployer.deploy(SafeMath)
   .then(() => {
-    deployer.link(SafeMath, [ZombieAttack, Ownable]);
-    return deployer.deploy(Ownable);
-  })
-  .then(() => {
-    deployer.link(Ownable, ZombieAttack);
+    deployer.link(SafeMath, [ZombieAttack]);
     return deployer.deploy(ZombieAttack);
   })
   .then(() => {
