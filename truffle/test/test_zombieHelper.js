@@ -1,54 +1,39 @@
-<<<<<<< HEAD
 const ZombieHelper = artifacts.require("ZombieAttack");
 
 contract("ZombieHelper", (accounts) => {
     const account_one = accounts[0];
     const account_two = accounts[1];
-=======
 
-let ZombieHelper = artifacts.require("./ZombieAttack.sol");
 
 contract("ZombieHelper", (accounts) => {
     let account_one = accounts[0];
     let account_two = accounts[1];
     let id1 = -1;
     let id2 = -1;
->>>>>>> Simon and Seb tests, 2 failing
     let zombieCon;
 
     beforeEach(async () => {
         zombieCon = await ZombieHelper.deployed();
     });
-<<<<<<< HEAD
 
-=======
     //get the level of a zombie with specific id
     //returns -1 if it fails
->>>>>>> Simon and Seb tests, 2 failing
     const getZombieLevel = (id) => {
         return zombieCon.zombies.call(id).then((result) => { return result[2].toNumber(); }).catch(() => { return -1 });
     }
 
-<<<<<<< HEAD
-=======
     //get the name of a zombie with specific id
     //returns "" if it fails
->>>>>>> Simon and Seb tests, 2 failing
     const getZombieName = (id) => {
         return zombieCon.zombies.call(id).then((result) => { return result[0]; }).catch(() => { return "" });
     }
 
-<<<<<<< HEAD
-=======
     //get the dna of a zombie with specific id
     //returns -1 if it fails
->>>>>>> Simon and Seb tests, 2 failing
     const getZombieDna = (id) => {
         return zombieCon.zombies.call(id).then((result) => { return result[1].toNumber(); }).catch(() => { return -1 });
     }
 
-<<<<<<< HEAD
-=======
     it("Should add and check existance of two zombies", async () => {
         await zombieCon.createRandomZombie("Simon", { from: account_one });
         await zombieCon.createRandomZombie("My friend", { from: account_two });
@@ -60,7 +45,6 @@ contract("ZombieHelper", (accounts) => {
         assert.equal(id2, 1, "Zombie with ID 1 not owned by second account");
     });
 
->>>>>>> Simon and Seb tests, 2 failing
     it("Should successfully level up two zombies, change the fee and fail if fee is not enough", async () => {
         let i;
 
@@ -82,22 +66,6 @@ contract("ZombieHelper", (accounts) => {
         assert.equal(lvl2, 2, "2nd Zombie not leveled up to lvl 2");
     });
 
-<<<<<<< HEAD
-    // TODO: not sure the reason for the vm failure here
-    // it("Should change name and dna of zombie and fail if level is too low", async () => {
-    //     await zombieCon.changeDna(0, 123456789, { from: account_one });
-    //     await zombieCon.changeName(1, "New Name", { from: account_two });
-
-    //     let dnaChanged;
-    //     await zombieCon.changeDna(1, 123456789, { from: account_two }).then(function () { dnaChanged = true; }).catch(function () { dnaChanged = false; });
-    //     assert.equal(dnaChanged, false, "Changed DNA of zombie even though lvl was too low");
-
-    //     const dna = await getZombieDna(0);
-    //     assert.equal(dna, 123456789, "1st Zombie didnt change DNA");
-    //     const name = await getZombieName(1);
-    //     assert.equal(name, "New Name", "2nd Zombie didnt change name");
-    // });
-=======
     it("Should change name and dna of zombie and fail if level is too low", async () => {
         await zombieCon.changeDna(0, 123456789, { from: account_one });
         await zombieCon.changeName(1, "New Name", { from: account_two });
@@ -111,7 +79,6 @@ contract("ZombieHelper", (accounts) => {
         const name = await getZombieName(1);
         assert.equal(name, "New Name", "2nd Zombie didnt change name");
     });
->>>>>>> Simon and Seb tests, 2 failing
 
     it("Should withdraw all the ether placed into the contract", async () => {
         const weiInContract = web3.eth.getBalance(ZombieHelper.address);

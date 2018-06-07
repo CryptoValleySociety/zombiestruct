@@ -1,4 +1,4 @@
-var ZombieFactory = artifacts.require("./ZombieFactory.sol");
+const ZombieFactory = artifacts.require("ZombieAttack");
 
 contract("ZombieFactory", function(accounts) {
 
