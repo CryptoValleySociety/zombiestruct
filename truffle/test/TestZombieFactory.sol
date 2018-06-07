@@ -5,7 +5,7 @@ import "truffle/DeployedAddresses.sol";
 import "../contracts/zombieFactory.sol";
 
 // Inherit since we want to test internal functions
-contract TestZombiefactory is ZombieFactory {
+contract TestZombieFactory is ZombieFactory {
 	
 	function testZombieCreation() public {
 		string memory name = "Test";
