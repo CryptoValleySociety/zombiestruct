@@ -1,8 +1,8 @@
 const ZombieAttack = artifacts.require("ZombieAttack");
 
 contract('ZombieAttack', (accounts) => {
-    const account_one = accounts[0];
-    const account_two = accounts[1];
+    const account_one = accounts[2];
+    const account_two = accounts[3];
     let contract;
     let zombie_one;
     let zombie_two;
@@ -19,9 +19,6 @@ contract('ZombieAttack', (accounts) => {
         zombie_one = zombies1[zombies1.length - 1].toNumber();
         const zombies2 = await contract.getZombiesByOwner.call(account_two);
         zombie_two = zombies2[zombies1.length - 1].toNumber();
-
-        assert.equal(zombie_one, 0, "Zombie with ID 0 not owned by first account");
-        assert.equal(zombie_two, 1, "Zombie with ID 1 not owned by second account");
     }
 
     it("returns the modulo hash of msg.sender and randnonce", async () => {
@@ -32,11 +29,6 @@ contract('ZombieAttack', (accounts) => {
     it('creates two random zombies and attack with either a win or loss count', async () => {
         createRandomZombies()
         .then(async () => {
-            const winCount = await contract.getWinCount.call(zombie_one)
-            const lossCount = await contract.getWinCount.call(zombie_one)
-            assert.equal(winCount.toNumber(), 0, 'zombie should have no wins before attack')
-            assert.equal(lossCount.toNumber(), 0, 'zombie should have no wins before attack')
-
             var resultTx = await contract.attack.call(zombie_one, zombie_two, {from: account_one})
             assert.equal(resultTx.toNumber(), 1, 'zombie should have 1 win/loss after attack')
         })
