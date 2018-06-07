@@ -1,4 +1,4 @@
-const ZombieAttack = artifacts.require("./zombieattack.sol");
+const ZombieAttack = artifacts.require("ZombieAttack");
 
 contract('ZombieAttack', (accounts) => {
     const account_one = accounts[0];
