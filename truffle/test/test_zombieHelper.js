@@ -1,5 +1,4 @@
-
-let ZombieHelper = artifacts.require("./ZombieAttack.sol");
+let ZombieHelper = artifacts.require("ZombieAttack");
 
 contract("ZombieHelper", (accounts) => {
     let account_one = accounts[0];
