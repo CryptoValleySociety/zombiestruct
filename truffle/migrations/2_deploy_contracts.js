@@ -1,4 +1,4 @@
-const ZombieAttack = artifacts.require("zombieattack");
+const ZombieAttack = artifacts.require("ZombieAttack");
 const SafeMath = artifacts.require("SafeMath");
 const { updateContracts } = require('../../web3/addresses/contracts');
 
