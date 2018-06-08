@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import contractMethods from '../utils/calls/component';
 
+
 import '../App.css'
+
 
 class Simon extends Component {
 
@@ -13,6 +15,7 @@ class Simon extends Component {
             contract: this.props.contract,
             accounts: this.props.accounts,
             zombie_one: this.props.zombies[0]
+
         }
     }
 
