@@ -22,33 +22,34 @@ class Mo extends Component {
 
     async createContract() {
       const MainContract = new web3.default.eth.Contract(ZombieAttack.abi, '0x97c181a8e6dda4a91d01f650d3ae60170a798fb4')
-      console.log(MainContract)
-      const accounts = await web3.default.eth.getAccounts()
+
+      const account = await web3.default.eth.getAccounts()[0]
+
       this.setState({
         contract: MainContract,
-        account: accounts
+        account: account
       })
-      await this.listen()
+      // await this.listen()
     }
 
     async listen() {
       const { contract } = this.state
       console.log(contract);
       const { _address } = contract
+      console.log(contract);
       const createZombieEvent = contract.at(_address)
     }
 
-    createZombie() {
-        const { contract } = this.state
-        contract.methods.createRandomZombie('Mohammad')
-
+    async createZombie() {
+        const { contract, account } = this.state
+        await contract.methods.createRandomZombie('Mohammad').send()
+        const zombieId = await contract.methods.getZombiesByOwner(account).call()
+        console.log(zombieId);
     }
 
-    callFunction() {
+  async callFunction() {
         console.log('hello')
-        // call function
-        // wait for reciept then call retrieve data function
-        this.createZombie();
+        await this.createZombie();
     }
 
     render() {
