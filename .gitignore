@@ -17,8 +17,13 @@ contract.json
 npm-debug.log
 .truffle-solidity-loader
 
+<<<<<<< HEAD
 #contract address
 src/utils/web3/addresses/contracts.js
 
 #mocha tests
 .nyc_output
+=======
+#contract address 
+src/utils/web3/addresses/contracts.js
+>>>>>>> Add ignore address
