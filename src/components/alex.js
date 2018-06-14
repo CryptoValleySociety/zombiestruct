@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import web3 from '../utils/web3/providers/index';
 import funcLib from '../utils/calls/component';
 
 import '../App.css'
@@ -31,10 +30,6 @@ class Alex extends Component {
         this.setUp()
     }
 
-    async _createZombie(name) {
-        await funcLib.createRandomZombie(this.state.contract, name)
-    }
-
     async _getZombie(account) {
         return await funcLib.getZombiesByOwner(this.state.contract, account)
     }
@@ -46,12 +41,10 @@ class Alex extends Component {
     async createZombie(from, name) {
         const zombies = await this._getZombie(from)
         if(zombies.length === 0){
-            console.log('zombies dont exist')
             await funcLib.createRandomZombie(this.state.contract, name, from, 300000)
             const arr = await this._getZombie(from)
             return arr[0]
         } else {
-            console.log('zombies exist')
             return zombies[0]
         }
     }

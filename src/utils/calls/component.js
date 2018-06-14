@@ -22,7 +22,6 @@ const getZombiesByOwner = async (contract, from) => {
 const createRandomZombie =  async (contract, name, from, gas) => {
     await contract.methods.createRandomZombie(name).send({ from: from, gas: gas })
     .on("receipt", async (receipt) => {
-        console.log('reciept', receipt)
         return receipt
     })
 }
