@@ -6,7 +6,7 @@ if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
 }
 else {
     const provider = new Web3.providers.HttpProvider(
-        'http://localhost:8545'
+        'http://127.0.0.1:7545'
     );
 
     testrpc3 = new Web3(provider);
