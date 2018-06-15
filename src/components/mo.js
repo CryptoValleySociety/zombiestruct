@@ -1,19 +1,13 @@
-import React, { Component } from 'react'
-import web3 from '../../web3/providers/index'
-import ZombieFeeding from '../../truffle/build/contracts/ZombieFeeding.json'
+import React, {Component} from 'react'
+import web3 from '../utils/web3/providers/index'
+import ZombieAttack from '../../truffle/build/contracts/ZombieAttack.json'
+import contractMethods from '../utils/calls/component'
 
 import '../App.css'
 
 class Mo extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            data: 'this is my data as a react state',
-            contract: null,
-            account: null
-        }
-    }
+  constructor(props) {
+    super(props)
 
     componentDidMount() {
        this.createContract()
@@ -32,59 +26,62 @@ class Mo extends Component {
       })
       // await this.listen()
 
+    this.state = {
+      data: 'this is my data as a react state',
+      contract: null,
+      account: null
     }
+  }
 
-    async listen() {
-      const { contract } = this.state
-      console.log(contract);
-      const { _address } = contract
-      console.log(contract);
-      const createZombieEvent = contract.at(_address)
-    }
 
-    async createContract() {
-      const MainContract = new web3.default.eth.Contract(ZombieAttack.abi, '0x1a812d086af307e9796da84a1a1a66dd56bd7443')
-      const accounts = await web3.default.eth.getAccounts()
-      this.setState({
-        contract: MainContract,
-        account: accounts[0]
-      })
-      // await this.listen()
-    }
+  componentDidMount() {
+    this.initialize()
+  }
 
-    async listen() {
-      const { contract } = this.state
-      console.log(contract);
-      const { _address } = contract
-      console.log(contract);
-      const createZombieEvent = contract.at(_address)
-    }
+  async initialize() {
+    const data = await contractMethods.initialize()
+    const {contract, accounts} = data
+    const account = accounts[0]
+    await this.setState({contract: contract, account: account})
+    // await this.getZombiesByOwner(contract, account)
+  }
 
-    async createZombie(gas) {
-        const { contract, account } = this.state
-        console.log(account);
-        await contract.methods.createRandomZombie('Mohammad').send({from: account, gas: gas})
-        const zombieOneId = await contract.methods.getZombiesByOwner(account).call()
-    }
+  async getZombiesByOwner(contract, account) {
+    const zombieId = await contractMethods.getZombiesByOwner(contract, account)
+    console.log(zombieId);
+  }
 
-  async callFunction() {
-        console.log('hello')
-        await this.createZombie();
-         // call function
-        // wait for reciept then call retrieve data function
-        this.createZombie();
+  async createZombie() {
+    const { contract, account } = this.state
+    const receipt = await contractMethods.createRandomZombie(contract, "Mohammad", account, 30000)
+    console.log(receipt);
+  }
 
-    }
+  async connectToKitty() {
+    const { contract, account } = this.state
+    const receipt = await contractMethods.connectToKitty(contract, account, 250000)
+    console.log(receipt);
+    // const kittyId = await this.feedOnKitty()
+    // console.log(kittyId);
+  }
 
-    render() {
-        return (
-            <div className="segment" id="mo">
-                <h1>Mo</h1>
-                <p id="data">{this.state.data}</p>
-                <button id="button" onClick={() => { this.callFunction() }}></button>
-            </div>
-        );
-    }
+  async feedOnKitty() {
+    const { contract, account } = this.state
+    await contractMethods.feedOnKitty(contract, account, 250000)
+  }
+
+  render() {
+    return (
+      <div className="segment" id="mo">
+        <h1>Mo</h1>
+        <p id="data">{this.state.data}</p>
+        <button id="button" onClick={() => {
+          this.createZombie()
+        }}></button>
+      </div>
+    );
+  }
+
 }
 
 export default Mo
