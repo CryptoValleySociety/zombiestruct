@@ -1,6 +1,6 @@
 
 var contracts = {
-    upperApp: '0x45b9a2de88375080baf0c9521bc7e75f93499a4d',
+    upperApp: '',
 }
 
 var updateContractAddresses = (address) => {
