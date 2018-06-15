@@ -31,6 +31,7 @@ class Mo extends Component {
         account: account
       })
       // await this.listen()
+
     }
 
     async listen() {
@@ -42,13 +43,11 @@ class Mo extends Component {
     }
 
     async createContract() {
-      const MainContract = new web3.default.eth.Contract(ZombieAttack.abi, '0x97c181a8e6dda4a91d01f650d3ae60170a798fb4')
-
-      const account = await web3.default.eth.getAccounts()[0]
-
+      const MainContract = new web3.default.eth.Contract(ZombieAttack.abi, '0x1a812d086af307e9796da84a1a1a66dd56bd7443')
+      const accounts = await web3.default.eth.getAccounts()
       this.setState({
         contract: MainContract,
-        account: account
+        account: accounts[0]
       })
       // await this.listen()
     }
@@ -61,11 +60,11 @@ class Mo extends Component {
       const createZombieEvent = contract.at(_address)
     }
 
-    async createZombie() {
+    async createZombie(gas) {
         const { contract, account } = this.state
-        await contract.methods.createRandomZombie('Mohammad').send()
-        const zombieId = await contract.methods.getZombiesByOwner(account).call()
-        console.log(zombieId);
+        console.log(account);
+        await contract.methods.createRandomZombie('Mohammad').send({from: account, gas: gas})
+        const zombieOneId = await contract.methods.getZombiesByOwner(account).call()
     }
 
   async callFunction() {
