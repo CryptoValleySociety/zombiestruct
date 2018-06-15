@@ -16,7 +16,6 @@ class Mo extends Component {
     }
   }
 
-
   componentDidMount() {
     this.initialize()
   }
