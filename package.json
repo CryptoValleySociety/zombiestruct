@@ -12,10 +12,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.0.16",
     "babel-preset-latest": "^6.24.1",
-<<<<<<< HEAD
     "babel-preset-react": "^6.24.1",
-=======
->>>>>>> Add async to babel
     "babel-preset-react-app": "^2.0.1",
     "babel-preset-stage-0": "^6.24.1",
     "case-sensitive-paths-webpack-plugin": "1.1.4",
@@ -59,14 +56,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "babel-preset-env": "^1.7.0",
-=======
->>>>>>> Add async to babel
-=======
-    "babel-preset-env": "^1.7.0",
->>>>>>> ADD Smart Contract instantiated function
     "child_process": "^1.0.2",
     "dotenv": "^2.0.0",
     "express": "^4.16.3",
