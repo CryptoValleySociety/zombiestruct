@@ -67,6 +67,7 @@ class Mo extends Component {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     async listen() {
       const { contract } = this.state
@@ -120,6 +121,8 @@ class Mo extends Component {
         );
     }
 >>>>>>> 0fc6985... SOLVED merge conflicts
+=======
+>>>>>>> 2199c72... ADD functions, kitty contract
 }
 
 export default Mo
