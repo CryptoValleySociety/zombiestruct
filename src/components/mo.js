@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import web3 from '../../web3/providers/index'
-import ZombieAttack from '../../truffle/build/contracts/ZombieAttack.json'
+
+import ZombieFeeding from '../../truffle/build/contracts/ZombieFeeding.json'
 
 import '../App.css'
 
@@ -17,6 +18,14 @@ class Mo extends Component {
 
     componentDidMount() {
        this.createContract()
+
+    }
+
+    createContract() {
+      const ZombieFeedingContract = new web3.default.eth.Contract(ZombieFeeding.abi)
+      console.log('contract', ZombieFeedingContract)
+      // this.setState({contract: ZombieFeeding})
+      // console.log('component mounted')
     }
 
 
@@ -50,6 +59,9 @@ class Mo extends Component {
   async callFunction() {
         console.log('hello')
         await this.createZombie();
+        // call function
+        // wait for reciept then call retrieve data function
+        this.updateData();
     }
 
     render() {
