@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import contractMethods from '../utils/calls/component';
 
-
 import '../App.css'
-
 
 class Simon extends Component {
 
