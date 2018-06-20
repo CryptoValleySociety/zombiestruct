@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import funcLib from '../utils/calls/funclib';
-
-//import Web3 from "web3";
-//import { contracts } from '../utils/web3/addresses/contracts';
-//import ZombieAttackAbi from '../../truffle/build/contracts/ZombieAttack.json';
+import contractMethods from '../utils/calls/simon';
 
 import '../App.css'
-
 
 class Simon extends Component {
 
