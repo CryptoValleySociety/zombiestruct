@@ -4,6 +4,7 @@ const assert = chai.assert;
 
 describe('Contract Method Library For Components', () => {
     const gas = 300000
+
     let contract = '';
     let accounts = [];
 
