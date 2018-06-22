@@ -5,7 +5,7 @@ import ZombieAttackAbi from '../../../truffle/build/contracts/ZombieAttack.json'
 const initialize = async() => {
   const accounts = await web3.default.eth.getAccounts()
   var obj = {
-    contract: new web3.default.eth.Contract(ZombieAttackAbi.abi, '0x20297c5fd9de8d5ed8069119d96d2a924dd4389e'),
+    contract: new web3.default.eth.Contract(ZombieAttackAbi.abi, '0x55ebf5e0d1bd3821f25882705dfb38da582427d8'),
     accounts: accounts
   }
   return obj;
@@ -77,7 +77,6 @@ const levelUp = async (contract, id, from, onReceipt) => {
     .on('receipt', async (receipt) => {
         return receipt
     });
-}
 
 module.exports = {
 
@@ -87,5 +86,6 @@ module.exports = {
   attack: attack,
   viewTransactionReciept: viewTransactionReciept,
   connectToKitty: connectToKitty,
-  feedOnKitty: feedOnKitty
+  feedOnKitty: feedOnKitty,
+  getZombieById: getZombieById
 }
