@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import contractMethods from '../utils/calls/component';
 
 import '../App.css'
 
@@ -7,35 +8,65 @@ class Alex extends Component {
         super(props)
 
         this.state = {
-            data: 'this is my data as a react state'
+            contract: '',
+            accounts: [],
+            reciept: '',
+            zombie_one: '',
+            zombie_two: '',
+            winLoss: 0
         }
     }
 
-    componentDidMount() {
-        // initiate contract
-        // call function retrieve data
-        console.log('component mounted')
+    async componentDidMount() {
+        this.initialize();
     }
 
-    updateData() {
-        //call the blockchain to revtrieve my data
-        var newData = "this is a change"
-        this.setState({data: newData})
+    async initialize() {
+        const initialObj = await contractMethods.initialize()
+        const { contract, accounts } = initialObj
+        await this.setState({
+            contract: contract,
+            accounts: accounts
+        })
+        this.setUp()
     }
 
-    callFunction() {
-        console.log('hello')
-        // call function 
-        // wait for reciept then call retrieve data function
-        this.updateData();
+    async _getZombie(account) {
+        return await contractMethods.getZombiesByOwner(this.state.contract, account)
+    }
+
+    async _attack(from, gas, _zombieId, _toId) {
+        return await contractMethods.attack(this.state.contract, from, gas, _zombieId, _toId)
+    }
+
+    async createZombie(from, name) {
+        const zombies = await this._getZombie(from)
+        if(zombies.length === 0){
+            await contractMethods.createRandomZombie(this.state.contract, name, from, 300000)
+            const arr = await this._getZombie(from)
+            return arr[0]
+        } else {
+            return zombies[0]
+        }
+    }
+
+    async setUp() {
+        const zomb1 = await this.createZombie(this.state.accounts[0], 'Banter')
+        const zomb2 = await this.createZombie(this.state.accounts[1], 'Joker')
+        await this.setState({ zombie_one: zomb1, zombie_two: zomb2})
+    }
+
+    async attack() {
+        const res = await contractMethods.attack(this.state.contract, this.state.accounts[0], 300000, this.state.zombie_one, this.state.zombie_two)
+        await this.setState({ winLoss: res})
     }
 
     render() {
         return (
             <div className="segment" id="alex">
                 <h1>Alex</h1>
-                <p id="data">{this.state.data}</p>
-                <button id="button" onClick={() => { this.callFunction() }}></button>
+                <p id="data">WIN/LOSS COUNT:  {this.state.winLoss}</p>
+                <button id="button" onClick={() => { this.attack() }}></button>
             </div>
         );
     }
