@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import contractMethods from '../utils/calls/simon';
+import contractMethods from '../utils/calls/component';
 
 import '../App.css'
 
@@ -10,25 +10,15 @@ class Simon extends Component {
 
         this.state = {
             data: 'this is my data as a react state',
-            contract: null,
-            accounts: null,
-            zombieId: -1
+            contract: this.props.contract,
+            accounts: this.props.accounts,
+            zombie_one: this.props.zombies[0]
         }
     }
 
     componentDidMount() {
-      this.initContract();
-    }
-
-    async initContract() {
-      const initObj = await contractMethods.initialize();
-      this.setState({
-        contract: initObj.contract,
-        accounts: initObj.accounts
-      });
-
       this.setListener()
-      this.checkZombie()
+      this.showZombie()
     }
 
     setListener() {
@@ -37,28 +27,8 @@ class Simon extends Component {
       });
     }
 
-    async checkZombie() {
-      const zombiesInAccount = await contractMethods.getZombiesByOwner(this.state.contract, this.state.accounts[0]);
-      if (zombiesInAccount.length === 0) {
-        await contractMethods.createRandomZombie(this.state.contract, 'Simon', this.state.accounts[0], 300000);
-      }
-      await this.showZombie();
-    }
-
     async showZombie() {
-      let zId
-      if (this.state.zombieId === -1) {
-        const ids = await contractMethods.getZombiesByOwner(this.state.contract, this.state.accounts[0]);
-        if (ids.length > 0) {
-          zId = ids[0];
-          this.setState({ zombieId: zId });
-        } else {
-          return;
-        }
-      } else {
-        zId = this.state.zombieId;
-      }
-      const zombie = await contractMethods.getZombieById(this.state.contract, zId);
+      const zombie = await contractMethods.getZombieById(this.state.contract, this.state.zombie_one);
       const zName = zombie.name;
       const zLevel = zombie.level;
       const zDna = zombie.dna
@@ -66,8 +36,7 @@ class Simon extends Component {
     }
 
     levelUp() {
-      const zId = this.state.zombieId;
-      contractMethods.levelUp(this.state.contract, zId, this.state.accounts[0], async () => {
+      contractMethods.levelUp(this.state.contract, this.state.zombie_one, this.state.accounts[0], async () => {
         await this.showZombie();
       });
 
