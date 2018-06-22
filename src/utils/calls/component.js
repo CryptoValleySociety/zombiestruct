@@ -5,7 +5,11 @@ import ZombieAttackAbi from '../../../truffle/build/contracts/ZombieAttack.json'
 const initialize = async() => {
   const accounts = await web3.default.eth.getAccounts()
   var obj = {
+<<<<<<< HEAD
     contract: new web3.default.eth.Contract(ZombieAttackAbi.abi, contracts.upperApp),
+=======
+    contract: new web3.default.eth.Contract(ZombieAttackAbi.abi, '0x55ebf5e0d1bd3821f25882705dfb38da582427d8'),
+>>>>>>> b84e2a1... ADD update front end once zombie is made, connect to kitty
     accounts: accounts
   }
   return obj;
@@ -57,6 +61,10 @@ const levelUp = async (contract, id, from, onReceipt) => {
     return await contract.methods.levelUp(id)
     .send({ from: from, value: web3.default.utils.toWei("0.001", "ether") })
     .on('receipt', async (receipt) => { return receipt })
+}
+
+const getZombieById = async (contract, id) => {
+  return await contract.methods.zombies(id).call();
 }
 
 module.exports = {
