@@ -11,10 +11,6 @@ const initialize = async () => {
     return obj;
 }
 
-const viewTransactionReciept = async (functionCall) => {
-    return await web3.default.eth.getTransactionReceipt(functionCall)
-}
-
 const getZombiesByOwner = async (contract, from) => {
     return await contract.methods.getZombiesByOwner(from).call()
 }
@@ -34,10 +30,26 @@ const attack = async (contract, from, gas, _zombieId, _toId) => {
     })
 }
 
+const setNewZombieListener = (contract, listener) => {
+    contract.events.NewZombie().on('data', listener);
+}
+
+const getZombieById = async (contract, id) => {
+    return await contract.methods.zombies(id).call();
+}
+
+const levelUp = async (contract, id, from, onReceipt) => {
+    return await contract.methods.levelUp(id)
+        .send({ from: from, value: web3.default.utils.toWei("0.001", "ether") })
+        .on('receipt', onReceipt);
+}
+
 module.exports = {
     initialize: initialize,
     getZombiesByOwner: getZombiesByOwner,
     createRandomZombie: createRandomZombie,
     attack: attack,
-    viewTransactionReciept: viewTransactionReciept
+    setNewZombieListener: setNewZombieListener,
+    getZombieById: getZombieById,
+    levelUp: levelUp
 }
