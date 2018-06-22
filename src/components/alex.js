@@ -17,9 +17,9 @@ class Alex extends Component {
         }
     }
 
-
     async _attack(from, gas, _zombieId, _toId) {
         return await contractMethods.attack(this.state.contract, from, gas, _zombieId, _toId)
+
     }
 
     async attack() {
