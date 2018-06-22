@@ -31,7 +31,9 @@ const getZombieById = async (contract,id) => {
 }
 
 const levelUp = async (contract,id,from,onReceipt) =>{
-  return await contract.methods.levelUp(id).send({from: from,value:web3.default.utils.toWei("0.001","ether")}).on('receipt',onReceipt);
+  return await contract.methods.levelUp(id)
+  .send({from: from,value:web3.default.utils.toWei("0.001","ether")})
+  .on('receipt',onReceipt);
 }
 
 module.exports = {
