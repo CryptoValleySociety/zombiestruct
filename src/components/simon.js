@@ -13,7 +13,10 @@ class Simon extends Component {
             contract: this.props.contract,
             accounts: this.props.accounts,
             zombie_one: this.props.zombies[0]
+<<<<<<< HEAD
 
+=======
+>>>>>>> Integrate Si and A components
         }
     }
 
@@ -36,9 +39,16 @@ class Simon extends Component {
       this.setState({ data: "Your zombie is named " + zName + ", has a dna of " + zDna + " and is of level " + zLevel });
     }
 
+<<<<<<< HEAD
     async levelUp() {
       await contractMethods.levelUp(this.state.contract, this.state.zombie_one, this.state.accounts[0])
       await this.showZombie();
+=======
+    levelUp() {
+      contractMethods.levelUp(this.state.contract, this.state.zombie_one, this.state.accounts[0], async () => {
+        await this.showZombie();
+      });
+>>>>>>> Integrate Si and A components
 
     }
 
