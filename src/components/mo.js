@@ -9,6 +9,7 @@ class Mo extends Component {
   constructor(props) {
     super(props)
 
+<<<<<<< HEAD
     componentDidMount() {
        this.createContract()
 
@@ -26,6 +27,8 @@ class Mo extends Component {
       })
       // await this.listen()
 
+=======
+>>>>>>> ADD update front end once zombie is made, connect to kitty
     this.state = {
       data: 'this is my data as a react state',
       contract: null,
@@ -43,31 +46,38 @@ class Mo extends Component {
     const {contract, accounts} = data
     const account = accounts[0]
     await this.setState({contract: contract, account: account})
-    // await this.getZombiesByOwner(contract, account)
+    await this.getZombiesByOwner(contract, account)
   }
 
   async getZombiesByOwner(contract, account) {
     const zombieId = await contractMethods.getZombiesByOwner(contract, account)
-    console.log(zombieId);
+    const zombie = await contractMethods.getZombieById(contract, zombieId[0])
+    if(zombie) {
+      this.setState({
+        data: zombie.name + zombie.dna
+      })
+    }
   }
 
   async createZombie() {
     const { contract, account } = this.state
-    const receipt = await contractMethods.createRandomZombie(contract, "Mohammad", account, 30000)
+    const receipt = await contractMethods.createRandomZombie(contract, "Mohammad", account, 3000000)
     console.log(receipt);
+    this.connectToKitty()
   }
 
   async connectToKitty() {
     const { contract, account } = this.state
-    const receipt = await contractMethods.connectToKitty(contract, account, 250000)
-    console.log(receipt);
-    // const kittyId = await this.feedOnKitty()
-    // console.log(kittyId);
+    console.log('CONTRACT: ', contract);
+    console.log('ACCOUNT: ', account);
+    await contractMethods.connectToKitty(contract, account, 3000000)
+    const kittyId = await this.feedOnKitty()
+    console.log(kittyId);
   }
 
   async feedOnKitty() {
     const { contract, account } = this.state
-    await contractMethods.feedOnKitty(contract, account, 250000)
+    await contractMethods.feedOnKitty(contract, account, 3000000)
   }
 
   render() {
