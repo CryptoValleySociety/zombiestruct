@@ -20,15 +20,17 @@ const getZombiesByOwner = async (contract, from) => {
 }
 
 const createRandomZombie =  async (contract, name, from, gas) => {
-    await contract.methods.createRandomZombie(name).send({ from: from, gas: gas })
+    await contract.methods.createRandomZombie(name)
+    .send({ from: from, gas: gas })
     .on("receipt", async (receipt) => {
         return receipt
     })
 }
 
 const attack = async (contract, from, gas, _zombieId, _toId) => {
-    return await contract.methods.attack(_zombieId, _toId).call({ from: from, gas: gas }, (err, res) => {
-        return res 
+    return await contract.methods.attack(_zombieId, _toId)
+    .call({ from: from, gas: gas }, (err, res) => {
+        return res
     })
 }
 
