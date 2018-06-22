@@ -23,7 +23,7 @@ class Alex extends Component {
 
     async initialize() {
         const initialObj = await contractMethods.initialize()
-        const { contract, accounts } = initialObj
+        const { contract, accounts } = initialObj 
         await this.setState({
             contract: contract,
             accounts: accounts
