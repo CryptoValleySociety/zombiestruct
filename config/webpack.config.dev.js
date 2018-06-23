@@ -79,7 +79,11 @@ module.exports = {
       'react-native': 'react-native-web'
     }
   },
-
+  externals: {
+    'cheerio': 'window',
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true,
+  },
   module: {
     // First, run the linter.
     // It's important to do this before Babel processes the JS.
