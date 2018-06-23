@@ -4,7 +4,6 @@ const assert = chai.assert;
 
 describe('Contract Method Library For Components', () => {
     const gas = 300000
-
     let contract = '';
     let accounts = [];
 
@@ -24,6 +23,7 @@ describe('Contract Method Library For Components', () => {
             const res = await contractMethods.createRandomZombie(contract, 'Banter', accounts[0], gas)
             assert.equal(res.events.NewZombie.event, 'NewZombie')
             const resp = await contractMethods.createRandomZombie(contract, 'NotBanter', accounts[1], gas)
+
             assert.equal(resp.events.NewZombie.event, 'NewZombie')
         } catch (err) {
             assert.strictEqual(err.name, 'Error', 'Create double zombie Error not being thrown');
@@ -45,6 +45,7 @@ describe('Contract Method Library For Components', () => {
     it('should return [] if owner has no zombies', async () => {
         const arr = await contractMethods.getZombiesByOwner(contract, accounts[2])
         assert.equal(arr.length, 0, 'zombie array is supposed to be empty')
+
     });
 
     it('should retrieve zombie by Id with the name of Banter', async () => {
