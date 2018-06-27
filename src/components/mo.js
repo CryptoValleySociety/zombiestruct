@@ -9,26 +9,6 @@ class Mo extends Component {
   constructor(props) {
     super(props)
 
-<<<<<<< HEAD
-    componentDidMount() {
-       this.createContract()
-
-    }
-
-
-    async createContract() {
-      const MainContract = new web3.default.eth.Contract(ZombieAttack.abi, '0x97c181a8e6dda4a91d01f650d3ae60170a798fb4')
-
-      const account = await web3.default.eth.getAccounts()[0]
-
-      this.setState({
-        contract: MainContract,
-        account: account
-      })
-      // await this.listen()
-
-=======
->>>>>>> ADD update front end once zombie is made, connect to kitty
     this.state = {
       data: 'this is my data as a react state',
       contract: null,
