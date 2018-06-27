@@ -78,10 +78,6 @@ const levelUp = async (contract, id, from, onReceipt) => {
     .on('receipt', async (receipt) => { return receipt })
 }
 
-const getZombieById = async (contract, id) => {
-  return await contract.methods.zombies(id).call();
-}
-
 module.exports = {
   initialize: initialize,
   getZombiesByOwner: getZombiesByOwner,
@@ -90,5 +86,7 @@ module.exports = {
   viewTransactionReciept: viewTransactionReciept,
   connectToKitty: connectToKitty,
   feedOnKitty: feedOnKitty,
-  getZombieById: getZombieById
+  getZombieById: getZombieById,
+  levelUp: levelUp,
+  setNewZombieListener: setNewZombieListener
 }
