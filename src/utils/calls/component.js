@@ -55,6 +55,9 @@ const connectToKitty = async(contract, from, gas) => {
   const kittyContract = '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d'
   await contract.methods.setKittyContractAddress(kittyContract)
   .send({from: from, gas: gas})
+  .on("receipt", async (receipt) => {
+    return receipt
+  })
 }
 
 const feedOnKitty = async(contract, from, gas) => {
