@@ -35,10 +35,9 @@ class Simon extends Component {
       this.setState({ data: "Your zombie is named " + zName + ", has a dna of " + zDna + " and is of level " + zLevel });
     }
 
-    levelUp() {
-      contractMethods.levelUp(this.state.contract, this.state.zombie_one, this.state.accounts[0], async () => {
-        await this.showZombie();
-      });
+    async levelUp() {
+      await contractMethods.levelUp(this.state.contract, this.state.zombie_one, this.state.accounts[0])
+      await this.showZombie();
 
     }
 
