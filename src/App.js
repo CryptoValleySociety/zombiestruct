@@ -51,7 +51,6 @@ class App extends Component {
       const zomb1 = await this.createZombie(this.state.accounts[0], 'Banter')
       const zomb2 = await this.createZombie(this.state.accounts[1], 'Joker')
       const zomb3 = await this.createZombie(this.state.accounts[2], 'Incase')
-
       const arr = [zomb1, zomb2, zomb3]
       await this.setState({ zombie_arr: arr })
     }
