@@ -5,7 +5,7 @@ import ZombieAttackAbi from '../../../truffle/build/contracts/ZombieAttack.json'
 const initialize = async() => {
   const accounts = await web3.default.eth.getAccounts()
   var obj = {
-    contract: new web3.default.eth.Contract(ZombieAttackAbi.abi, '0x55ebf5e0d1bd3821f25882705dfb38da582427d8'),
+    contract: new web3.default.eth.Contract(ZombieAttackAbi.abi, contracts.upperApp),
     accounts: accounts
   }
   return obj;
@@ -38,9 +38,8 @@ const getZombiesByOwner = async(contract, from) => {
 }
 
 const createRandomZombie = async(contract, name, from, gas) => {
-  await contract.methods.createRandomZombie(name).send({from: from, gas: gas}).on("receipt", async(receipt) => {
-    return receipt
-  })
+  await contract.methods.createRandomZombie(name)
+  .send({from: from, gas: gas})
 }
 
 const attack = async(contract, from, gas, _zombieId, _toId) => {
@@ -54,13 +53,13 @@ const attack = async(contract, from, gas, _zombieId, _toId) => {
 
 const connectToKitty = async(contract, from, gas) => {
   const kittyContract = '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d'
-  await contract.methods.setKittyContractAddress(kittyContract).send({from: from, gas: gas}).on("receipt", async(receipt) => {
-    return receipt
-  })
+  await contract.methods.setKittyContractAddress(kittyContract)
+  .send({from: from, gas: gas})
 }
 
 const feedOnKitty = async(contract, from, gas) => {
-  await contract.methods.feedOnKitty(0, 0).send({from: from, gas: gas})
+  await contract.methods.feedOnKitty(0, 0)
+  .send({from: from, gas: gas})
 }
 
 const setNewZombieListener = (contract, listener) => {

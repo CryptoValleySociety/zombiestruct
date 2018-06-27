@@ -47,6 +47,7 @@ class Mo extends Component {
     const account = accounts[0]
     await this.setState({contract: contract, account: account})
     await this.getZombiesByOwner(contract, account)
+    await this.connectToKitty()
   }
 
   async getZombiesByOwner(contract, account) {
@@ -61,18 +62,12 @@ class Mo extends Component {
 
   async createZombie() {
     const { contract, account } = this.state
-    const receipt = await contractMethods.createRandomZombie(contract, "Mohammad", account, 3000000)
-    console.log(receipt);
-    this.connectToKitty()
+    await contractMethods.createRandomZombie(contract, "Mohammad", account, 3000000)
   }
 
   async connectToKitty() {
     const { contract, account } = this.state
-    console.log('CONTRACT: ', contract);
-    console.log('ACCOUNT: ', account);
     await contractMethods.connectToKitty(contract, account, 3000000)
-    const kittyId = await this.feedOnKitty()
-    console.log(kittyId);
   }
 
   async feedOnKitty() {
@@ -86,8 +81,11 @@ class Mo extends Component {
         <h1>Mo</h1>
         <p id="data">{this.state.data}</p>
         <button id="button" onClick={() => {
+          this.feedOnKitty()
+        }}>feedonkitty</button>
+        <button id="button" onClick={() => {
           this.createZombie()
-        }}></button>
+        }}>createZombie</button>
       </div>
     );
   }
