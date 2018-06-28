@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { Component } from 'react'
+=======
+import React, {Component} from 'react'
+>>>>>>> 84b713c... ADD automated contract updating, working on connecting to main net
 import contractMethods from '../utils/calls/component'
 
 
@@ -22,11 +26,19 @@ class Mo extends Component {
   async getZombiesByOwner(contract, account) {
     const zombieIds = await contractMethods.getZombiesByOwner(contract, account)
     zombieIds.forEach(async (id) => {
+<<<<<<< HEAD
       const zombie = await contractMethods.getZombieById(contract, id)
       this.setState({
         data: this.state.data + zombie['0'] + '\n' + zombie['1']
       })
       return zombie
+=======
+        const zombie = await contractMethods.getZombieById(contract, id)
+        this.setState({
+          data: this.state.data + zombie['0'] + '\n' + zombie['1']
+        })
+        return zombie
+>>>>>>> 84b713c... ADD automated contract updating, working on connecting to main net
     })
 
 
@@ -38,7 +50,11 @@ class Mo extends Component {
       await contractMethods.createRandomZombie(contract, "Mohammad", account, 3000000)
     }
     catch (e) {
+<<<<<<< HEAD
       throw ('Unable to create zombie', e)
+=======
+      throw('Unable to create zombie', e)
+>>>>>>> 84b713c... ADD automated contract updating, working on connecting to main net
     }
     this.getZombiesByOwner(contract, account)
   }
@@ -46,7 +62,10 @@ class Mo extends Component {
   async feedOnKitty() {
     const { contract, account } = this.state
     await contractMethods.feedOnKitty(contract, account, 3000000)
+<<<<<<< HEAD
     this.getZombiesByOwner(contract, account)
+=======
+>>>>>>> 84b713c... ADD automated contract updating, working on connecting to main net
   }
 
   render() {
