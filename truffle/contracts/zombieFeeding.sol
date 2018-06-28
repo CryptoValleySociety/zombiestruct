@@ -46,14 +46,12 @@ contract ZombieFeeding is ZombieFactory {
     if (keccak256(_species) == keccak256("kitty")) {
       newDna = newDna - newDna % 100 + 99;
     }
-    _createZombie("NoName", newDna);
+    _createZombie("The Kitty for Mo", newDna);
     _triggerCooldown(myZombie);
   }
 
-  function feedOnKitty(uint _zombieId, uint _kittyId) public returns (uint) {
-    uint kittyDna;
-    (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
-    return kittyDna;
-    /* feedAndMultiply(_zombieId, kittyDna, "kitty"); */
+  function feedOnKitty(uint _zombieId, uint _kittyDna) public returns (uint) {
+    // (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
+    feedAndMultiply(_zombieId, kittyDna, "kitty");
   }
 }

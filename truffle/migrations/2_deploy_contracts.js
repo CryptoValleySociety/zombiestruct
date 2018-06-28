@@ -1,6 +1,6 @@
 const ZombieAttack = artifacts.require("ZombieAttack");
 const SafeMath = artifacts.require("SafeMath");
-const { updateContracts } = require('../../src/utils/web3/addresses/contracts');
+const { updateContracts, storeContract } = require('../../src/utils/web3/addresses/contracts');
 
 const updateContractAddress = (contract) => {
   updateContracts(contract)
@@ -14,6 +14,7 @@ module.exports = function(deployer) {
   })
   .then(() => {
     updateContractAddress(ZombieAttack.address)
+    storeContract(ZombieAttack.address)
   })
   .catch((e) => {
     console.log('ERROR IN DEPLOYMENT....', e)
