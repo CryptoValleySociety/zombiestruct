@@ -9,6 +9,7 @@ coverage
 # production
 build
 build_webpack
+contract.json
 
 # misc
 .DS_Store
@@ -16,7 +17,7 @@ build_webpack
 npm-debug.log
 .truffle-solidity-loader
 
-#contract address 
+#contract address
 src/utils/web3/addresses/contracts.js
 
 #mocha tests
