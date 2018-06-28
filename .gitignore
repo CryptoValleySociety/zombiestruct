@@ -18,6 +18,7 @@ npm-debug.log
 .truffle-solidity-loader
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #contract address
 src/utils/web3/addresses/contracts.js
 
@@ -25,6 +26,9 @@ src/utils/web3/addresses/contracts.js
 .nyc_output
 =======
 #contract address 
+=======
+#contract address
+>>>>>>> ADD automated contract updating, working on connecting to main net
 src/utils/web3/addresses/contracts.js
 <<<<<<< HEAD
 >>>>>>> Add ignore address
