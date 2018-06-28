@@ -26,4 +26,10 @@ src/utils/web3/addresses/contracts.js
 =======
 #contract address 
 src/utils/web3/addresses/contracts.js
+<<<<<<< HEAD
 >>>>>>> Add ignore address
+=======
+
+#mocha tests
+.nyc_output
+>>>>>>> EDIT gitignore to exclude test output
