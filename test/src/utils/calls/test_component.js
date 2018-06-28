@@ -22,7 +22,7 @@ describe('Contract Method Library For Components', () => {
         try {
             const res = await contractMethods.createRandomZombie(contract, 'Banter', accounts[0], gas)
             assert.equal(res.events.NewZombie.event, 'NewZombie')
-            const resp = await contractMethods.createRandomZombie(contract, 'Banter', accounts[1], gas)
+            const resp = await contractMethods.createRandomZombie(contract, 'NotBanter', accounts[1], gas)
             assert.equal(resp.events.NewZombie.event, 'NewZombie')
         } catch (err) {
             assert.strictEqual(err.name, 'Error', 'Create double zombie Error not being thrown');
@@ -30,8 +30,10 @@ describe('Contract Method Library For Components', () => {
     });
 
     it('should get zombies array of 2', async () => {
-        //TODO: 
-        assert.equal(0, 1, 'need to build')
+        const res = await contractMethods.getZombieById(contract,0);
+        assert.equal(res.name, 'Banter');
+        const resp=await contractMethods.getZombieById(contract,1);
+        assert.equal(resp.name, 'NotBanter');
     });
 
     it('should get zombie array of owner if zombies exist', async () => {
@@ -45,8 +47,8 @@ describe('Contract Method Library For Components', () => {
     });
 
     it('should retrieve zombie by Id with the name of Banter', async () => {
-        // TODO:
-        assert.equal(0, 1, 'need to build')
+        const res = await contractMethods.getZombieById(contract,0);
+        assert.equal(res.name, 'Banter');
     });
 
     it('should attack and return the attack response', async () => {
@@ -59,12 +61,8 @@ describe('Contract Method Library For Components', () => {
     });
 
     it('should level up zombie', async () => {
-        // TODO:
-        assert.equal(0, 1, 'need to build')
-    });
-
-    it('should not level up zombie', async () => {
-        // TODO:
-        assert.equal(0, 1, 'need to build')
+        await contractMethods.levelUp(contract,0,accounts[0],()=>{});
+            const res = await contractMethods.getZombieById(contract,0);
+            assert.equal(res.level, 2);
     });
 });
