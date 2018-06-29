@@ -1,7 +1,9 @@
 import web3 from '../web3/providers/index'
+import mainNet from '../web3/providers/main'
 import axios from 'axios'
 import {getContractAddress} from '../web3/addresses/contracts';
 import ZombieAttackAbi from '../../../truffle/build/contracts/ZombieAttack.json';
+import KittyContractAbi from '../../../truffle/build/contracts/KittyContract.json'
 
 const initialize = async() => {
   const accounts = await web3.default.eth.getAccounts()
@@ -28,7 +30,14 @@ const attack = async(contract, from, gas, _zombieId, _toId) => {
 }
 
 const feedOnKitty = async(contract, from, gas) => {
-  await contract.methods.feedOnKitty(0, 0).send({from: from, gas: gas})
+  const kittyId = 0
+  const kittyContract = new mainNet.eth.Contract(KittyContractAbi, '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d')
+  const kitty = await kittyContract.methods.getKitty(kittyId).call()
+  const kittyDna = kitty.genes
+  // first zombie created in dApp feeds on first kitty created in Crypto Kitties 
+  await contract.methods.feedOnKitty(0, kittyDna).send({from: from, gas: gas}).on("receipt", async(receipt) => {
+    return receipt
+  })
 }
 
 const getZombieById = async (contract, id) => {
