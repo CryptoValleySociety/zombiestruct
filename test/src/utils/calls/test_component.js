@@ -25,7 +25,7 @@ describe('Contract Method Library For Components', () => {
             const resp = await contractMethods.createRandomZombie(contract, 'NotBanter', accounts[1], gas)
             assert.equal(resp.events.NewZombie.event, 'NewZombie')
         } catch (err) {
-            assert.strictEqual(err.name, 'Error', 'Create double zombie Error not being thrown');
+            assert.equal(err.name, 'Error', 'Create double zombie Error not being thrown');
         }
     });
 
