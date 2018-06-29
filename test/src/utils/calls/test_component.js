@@ -61,9 +61,11 @@ describe('Contract Method Library For Components', () => {
     });
 
     it('should level up zombie', async () => {
+        const start = await contractMethods.getZombieById(contract, 0);
+        const startNum = parseInt(start.level)
         await contractMethods.levelUp(contract, 0, accounts[0], () => { });
         const res = await contractMethods.getZombieById(contract, 0);
-        assert.equal(res.level, 2);
+        assert.equal(parseInt(res.level), startNum + 1);
     });
 
     it('should create a new zombie after feeding on a kitty', async () => {
