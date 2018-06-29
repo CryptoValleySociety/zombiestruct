@@ -38,6 +38,10 @@ const getZombieById = async (contract, id) => {
     return await contract.methods.zombies(id).call();
 }
 
+const getNumberOfZombies = async (contract) => {
+    return await contract.methods.getNumberOfZombies().call();
+}
+
 const levelUp = async (contract, id, from, onReceipt) => {
     return await contract.methods.levelUp(id)
     .send({ from: from, value: web3.default.utils.toWei("0.001", "ether") })
@@ -49,6 +53,7 @@ const levelUp = async (contract, id, from, onReceipt) => {
 module.exports = {
     initialize: initialize,
     getZombiesByOwner: getZombiesByOwner,
+    getNumberOfZombies: getNumberOfZombies,
     createRandomZombie: createRandomZombie,
     attack: attack,
     setNewZombieListener: setNewZombieListener,
