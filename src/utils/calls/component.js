@@ -1,9 +1,8 @@
 import web3 from '../web3/providers/index'
 import mainNet from '../web3/providers/main'
-import axios from 'axios'
 import {getContractAddress} from '../web3/addresses/contracts';
 import ZombieAttackAbi from '../../../truffle/build/contracts/ZombieAttack.json';
-import KittyContractAbi from '../../../truffle/build/contracts/KittyContract.json'
+import KittyContractAbi from '../../../truffle/build/contracts/KittyInterface.json'
 
 const initialize = async() => {
   const accounts = await web3.default.eth.getAccounts()
