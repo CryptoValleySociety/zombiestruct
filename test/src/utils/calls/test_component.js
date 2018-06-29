@@ -14,7 +14,7 @@ describe('Contract Method Library For Components', () => {
     })
 
     it('should initialize contract and return obj with accounts', async () => {
-        assert.equal(typeof(contract._address), 'string', 'address is expected to be string');
+        assert.equal(typeof (contract._address), 'string', 'address is expected to be string');
         assert.equal(accounts.length, 10, 'accounts arr is supposed to contain 10 accounts')
     });
 
@@ -25,14 +25,14 @@ describe('Contract Method Library For Components', () => {
             const resp = await contractMethods.createRandomZombie(contract, 'NotBanter', accounts[1], gas)
             assert.equal(resp.events.NewZombie.event, 'NewZombie')
         } catch (err) {
-            assert.equal(err.name, 'Error', 'Create double zombie Error not being thrown');
+            assert.strictEqual(err.name, 'Error', 'Create double zombie Error not being thrown');
         }
     });
 
     it('should get zombies array of 2', async () => {
-        const res = await contractMethods.getZombieById(contract,0);
+        const res = await contractMethods.getZombieById(contract, 0);
         assert.equal(res.name, 'Banter');
-        const resp=await contractMethods.getZombieById(contract,1);
+        const resp = await contractMethods.getZombieById(contract, 1);
         assert.equal(resp.name, 'NotBanter');
     });
 
@@ -47,7 +47,7 @@ describe('Contract Method Library For Components', () => {
     });
 
     it('should retrieve zombie by Id with the name of Banter', async () => {
-        const res = await contractMethods.getZombieById(contract,0);
+        const res = await contractMethods.getZombieById(contract, 0);
         assert.equal(res.name, 'Banter');
     });
 
@@ -61,17 +61,16 @@ describe('Contract Method Library For Components', () => {
     });
 
     it('should level up zombie', async () => {
-        await contractMethods.levelUp(contract,0,accounts[0],()=>{});
-            const res = await contractMethods.getZombieById(contract,0);
-            assert.equal(res.level, 2);
+        await contractMethods.levelUp(contract, 0, accounts[0], () => { });
+        const res = await contractMethods.getZombieById(contract, 0);
+        assert.equal(res.level, 2);
     });
 
     it('should create a new zombie after feeding on a kitty', async () => {
-      await contractMethods.feedOnKitty(contract, accounts[0], gas)
-      const zombies = await contractMethods.getZombiesByOwner(contract, accounts[0])
-      const zombId = zombies[zombies.length - 1]
-      const zombie = await contractMethods.getZombieById(zombId)
-      assert.equal(zombie['1'], "The Kitty for Mo", 'The new zombie created should have the name: `The Kitty for Mo`')
+        await contractMethods.feedOnKitty(contract, accounts[0], gas)
+        const zombies = await contractMethods.getZombiesByOwner(contract, accounts[0])
+        const zombId = zombies[zombies.length - 1]
+        const zombie = await contractMethods.getZombieById(zombId)
+        assert.equal(zombie['1'], "The Kitty for Mo", 'The new zombie created should have the name: `The Kitty for Mo`')
     })
-
 });
