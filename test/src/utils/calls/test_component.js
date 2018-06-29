@@ -65,4 +65,13 @@ describe('Contract Method Library For Components', () => {
             const res = await contractMethods.getZombieById(contract,0);
             assert.equal(res.level, 2);
     });
+
+    it('should create a new zombie after feeding on a kitty', async () => {
+      await contractMethods.feedOnKitty(contract, accounts[0], gas)
+      const zombies = await contractMethods.getZombiesByOwner(contract, accounts[0])
+      const zombId = zombies[zombies.length - 1]
+      const zombie = await contractMethods.getZombieById(zombId)
+      assert.equal(zombie['1'], "The Kitty for Mo", 'The new zombie created should have the name: `The Kitty for Mo`')
+    })
+
 });
