@@ -34,7 +34,9 @@ const feedOnKitty = async(contract, from, gas) => {
   const kitty = await kittyContract.methods.getKitty(kittyId).call()
   const kittyDna = kitty.genes
   // first zombie created in dApp feeds on first kitty created in Crypto Kitties 
-  await contract.methods.feedOnKitty(0, kittyDna).send({from: from, gas: gas}).on("receipt", async(receipt) => {
+  await contract.methods.feedOnKitty(0, kittyDna)
+  .send({from: from, gas: gas})
+  .on("receipt", async(receipt) => {
     return receipt
   })
 }
