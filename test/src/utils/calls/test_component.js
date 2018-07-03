@@ -51,6 +51,11 @@ describe('Contract Method Library For Components', () => {
         assert.equal(res.name, 'Banter');
     });
 
+    it('should return the number of zombies in the contract', async () => {
+        const res = await contractMethods.getNumberOfZombies(contract);
+        assert.equal(res, 2);
+    });
+
     it('should attack and return the attack response', async () => {
         const arr1 = await contractMethods.getZombiesByOwner(contract, accounts[0])
         const zomb1 = arr1[0]
