@@ -44,7 +44,6 @@ describe('Contract Method Library For Components', () => {
     it('should return [] if owner has no zombies', async () => {
         const arr = await contractMethods.getZombiesByOwner(contract, accounts[2])
         assert.equal(arr.length, 0, 'zombie array is supposed to be empty')
-
     });
 
     it('should retrieve zombie by Id with the name of Banter', async () => {

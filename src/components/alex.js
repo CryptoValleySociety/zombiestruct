@@ -17,17 +17,10 @@ class Alex extends Component {
         }
     }
 
-<<<<<<< HEAD
-=======
-    async _attack(from, gas, _zombieId, _toId) {
-        return await contractMethods.attack(this.state.contract, from, gas, _zombieId, _toId)
-    }
->>>>>>> Integrate Si and A components
 
     async attack() {
         const res = await contractMethods.attack(this.state.contract, this.state.accounts[0], 300000, this.state.zombie_one, this.state.zombie_two)
         await this.setState({ winLoss: res})
-
     }
 
     render() {

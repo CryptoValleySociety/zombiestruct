@@ -19,10 +19,14 @@ npm-debug.log
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 359f7331d756deff719e03382ef1d93292588d81
 #contract address
 src/utils/web3/addresses/contracts.js
 
 #mocha tests
+<<<<<<< HEAD
 .nyc_output
 =======
 #contract address 
@@ -37,3 +41,6 @@ src/utils/web3/addresses/contracts.js
 #mocha tests
 .nyc_output
 >>>>>>> EDIT gitignore to exclude test output
+=======
+.nyc_output
+>>>>>>> 359f7331d756deff719e03382ef1d93292588d81

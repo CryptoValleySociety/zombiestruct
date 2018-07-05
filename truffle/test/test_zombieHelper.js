@@ -4,7 +4,6 @@ contract("ZombieHelper", (accounts) => {
     const account_one = accounts[0];
     const account_two = accounts[1];
 
-
 contract("ZombieHelper", (accounts) => {
     let account_one = accounts[0];
     let account_two = accounts[1];
