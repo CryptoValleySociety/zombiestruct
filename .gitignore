@@ -17,7 +17,6 @@ contract.json
 npm-debug.log
 .truffle-solidity-loader
 
-
 #contract address
 src/utils/web3/addresses/contracts.js
 

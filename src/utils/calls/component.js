@@ -58,7 +58,11 @@ const feedOnKitty = async(contract, from, gas) => {
   const kittyContract = new mainNet.eth.Contract(KittyContractAbi, '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d')
   const kitty = await kittyContract.methods.getKitty(kittyId).call()
   const kittyDna = kitty.genes
+<<<<<<< HEAD
   // first zombie created in dApp feeds on first kitty created in Crypto Kitties
+=======
+  // first zombie created in dApp feeds on first kitty created in Crypto Kitties
+>>>>>>> 359f7331d756deff719e03382ef1d93292588d81
   await contract.methods.feedOnKitty(0, kittyDna)
   .send({from: from, gas: gas})
   .on("receipt", async(receipt) => {

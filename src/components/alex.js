@@ -16,7 +16,6 @@ class Alex extends Component {
         }
     }
 
-
     async attack() {
         const res = await contractMethods.attack(this.state.contract, this.state.accounts[0], 300000, this.state.zombie_one, this.state.zombie_two)
         await this.setState({ winLoss: res})

@@ -17,7 +17,6 @@ contract("ZombieHelper", (accounts) => {
 
     //get the level of a zombie with specific id
     //returns -1 if it fails
-
     const getZombieLevel = (id) => {
         return zombieCon.zombies.call(id).then((result) => { return result[2].toNumber(); }).catch(() => { return -1 });
     }

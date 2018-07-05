@@ -25,7 +25,7 @@ class Seb extends Component {
 
     callFunction() {
         console.log('hello')
-        // call function 
+        // call function
         // wait for reciept then call retrieve data function
         this.updateData();
     }
