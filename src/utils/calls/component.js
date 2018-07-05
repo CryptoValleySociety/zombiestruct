@@ -1,11 +1,14 @@
 import web3 from '../web3/providers/index'
 import { contracts } from '../web3/addresses/contracts';
 import ZombieAttackAbi from '../../../truffle/build/contracts/ZombieAttack.json';
+import KittyContractAbi from '../../../truffle/build/contracts/KittyInterface.json'
+import mainNet from '../web3/providers/main'
+import {getContractAddress} from '../web3/addresses/contracts';
 
 const initialize = async () => {
     const accounts = await web3.default.eth.getAccounts()
     var obj = {
-        contract: new web3.default.eth.Contract(ZombieAttackAbi.abi, contracts.upperApp),
+        contract: new web3.default.eth.Contract(ZombieAttackAbi.abi, getContractAddress()),
         accounts: accounts
     }
     return obj;
@@ -26,7 +29,7 @@ const createRandomZombie =  async (contract, name, from, gas) => {
 const attack = async (contract, from, gas, _zombieId, _toId) => {
     return await contract.methods.attack(_zombieId, _toId)
     .call({ from: from, gas: gas }, (err, res) => {
-        return res 
+        return res
     })
 }
 
@@ -50,13 +53,27 @@ const levelUp = async (contract, id, from, onReceipt) => {
     });
 }
 
+const feedOnKitty = async(contract, from, gas) => {
+  const kittyId = 0
+  const kittyContract = new mainNet.eth.Contract(KittyContractAbi, '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d')
+  const kitty = await kittyContract.methods.getKitty(kittyId).call()
+  const kittyDna = kitty.genes
+  // first zombie created in dApp feeds on first kitty created in Crypto Kitties
+  await contract.methods.feedOnKitty(0, kittyDna)
+  .send({from: from, gas: gas})
+  .on("receipt", async(receipt) => {
+    return receipt
+  })
+}
+
 module.exports = {
-    initialize: initialize,
-    getZombiesByOwner: getZombiesByOwner,
-    getNumberOfZombies: getNumberOfZombies,
-    createRandomZombie: createRandomZombie,
-    attack: attack,
-    setNewZombieListener: setNewZombieListener,
-    getZombieById: getZombieById,
-    levelUp: levelUp
+  initialize: initialize,
+  getZombiesByOwner: getZombiesByOwner,
+  createRandomZombie: createRandomZombie,
+  attack: attack,
+  viewTransactionReciept: viewTransactionReciept,
+  feedOnKitty: feedOnKitty,
+  getZombieById: getZombieById,
+  levelUp: levelUp,
+  setNewZombieListener: setNewZombieListener
 }
