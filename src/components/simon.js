@@ -38,6 +38,8 @@ class Simon extends Component {
     async levelUp() {
       await contractMethods.levelUp(this.state.contract, this.state.zombie_one, this.state.accounts[0])
       await this.showZombie();
+
+
     }
 
     render() {
