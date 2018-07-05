@@ -1,6 +1,6 @@
-const ZombieFactory = artifacts.require("ZombieAttack");
+var ZombieFactory = artifacts.require("./ZombieFactory.sol");
 
-contract("ZombieFactory", (accounts) => {
+contract("ZombieFactory", function(accounts) {
 
 	const account_one = accounts[0];
 	const account_two = accounts[1];
@@ -11,10 +11,15 @@ contract("ZombieFactory", (accounts) => {
         contract = await ZombieFactory.deployed();
 	});
 
+	it("extends the zombies array by exactly one with createRandomZombie", async () =>  {
+		const preLength = (await contract.getNumberOfZombies.call()).toNumber()
+		await contract.createRandomZombie(name, {from: account_one})	
+		const postLength = (await contract.getNumberOfZombies.call()).toNumber()
+		assert.equal(preLength + 1, postLength, "createRandomZombie did not increase the array length by one.");
+	});
+
 	it("creates a new zombie with the given name in createRandomZombie", async () => {
-		await contract.createRandomZombie(name, { from: account_one })
-		const index = await contract.getZombieByName.call(name)
-		const zombie = (await contract.zombies.call(index))
+		const zombie = (await contract.zombies.call(0))
 
 		// The call does not return the struct but rather an array of members.
 		// Since "name" is the first member of the struct it is the first entry of the array.
@@ -22,14 +27,11 @@ contract("ZombieFactory", (accounts) => {
 
 	});
 
-	// TODO: this is the race condition, need to send object of indexes from function above
+	it("creates zombies with equal DNA for equivalent names", async () => {
+		await contract.createRandomZombie(name, {from: account_two})
+		const oldZombie = (await contract.zombies.call(0))
+		const newZombie = (await contract.zombies.call(1))
 
-	// it("creates zombies with equal DNA for equivalent names", async () => {
-	// 	await contract.createRandomZombie(name, {from: account_two})
-	// 	const index = await contract.getZombieByName.call(name)
-	// 	const oldZombie = (await contract.zombies.call(index))
-	// 	const newZombie = (await contract.zombies.call(3))
-
-	// 	assert.equal(oldZombie[1].toNumber(), newZombie[1].toNumber(), "createRandomZombie did not create two zombies with equal DNA for the same name")
-	// })
+		assert.equal(oldZombie[1].toNumber(), newZombie[1].toNumber(), "createRandomZombie did not create two zombies with equal DNA for the same name")
+	})
 });
