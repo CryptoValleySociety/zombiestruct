@@ -40,19 +40,16 @@ contract ZombieFeeding is ZombieFactory {
 
   function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) internal onlyOwnerOf(_zombieId) {
     Zombie storage myZombie = zombies[_zombieId];
-    // require(_isReady(myZombie)); --> cannot have this require during tests as zombie has to wait a day to attack
     _targetDna = _targetDna % dnaModulus;
     uint newDna = (myZombie.dna + _targetDna) / 2;
     if (keccak256(_species) == keccak256("kitty")) {
       newDna = newDna - newDna % 100 + 99;
     }
-    _createZombie("NoName", newDna);
+    _createZombie("The Kitty for Mo", newDna);
     _triggerCooldown(myZombie);
   }
 
-  function feedOnKitty(uint _zombieId, uint _kittyId) public {
-    uint kittyDna;
-    (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
-    feedAndMultiply(_zombieId, kittyDna, "kitty");
+  function feedOnKitty(uint _zombieId, uint _kittyDna) public {
+    feedAndMultiply(_zombieId, _kittyDna, "kitty");
   }
 }

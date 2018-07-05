@@ -3,12 +3,20 @@ const ZombieHelper = artifacts.require("ZombieAttack");
 contract("ZombieHelper", (accounts) => {
     const account_one = accounts[0];
     const account_two = accounts[1];
+
+contract("ZombieHelper", (accounts) => {
+    let account_one = accounts[0];
+    let account_two = accounts[1];
+    let id1 = -1;
+    let id2 = -1;
     let zombieCon;
 
     beforeEach(async () => {
         zombieCon = await ZombieHelper.deployed();
     });
 
+    //get the level of a zombie with specific id
+    //returns -1 if it fails
     const getZombieLevel = (id) => {
         return zombieCon.zombies.call(id).then((result) => { return result[2].toNumber(); }).catch(() => { return -1 });
     }
