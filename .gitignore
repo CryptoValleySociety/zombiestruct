@@ -16,8 +16,10 @@ build_webpack
 npm-debug.log
 .truffle-solidity-loader
 
-#contract address 
+#contract address
 src/utils/web3/addresses/contracts.js
+contract.json
+*-lock.json
 
 #mocha tests
 .nyc_output
