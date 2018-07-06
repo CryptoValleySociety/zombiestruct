@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-//import web3 from '../utils/web3/providers/index';
-//import ZombieFactoryAbi from '../../truffle/build/contracts/ZombieAttack.json';
-import contractMethods from '../utils/calls/component';
+import contractMethods from '../utils/infura/index';
 
 import '../App.css'
 
@@ -23,19 +21,19 @@ class Seb extends Component {
 
 
     async updateData() {
-        const zombieCount = await contractMethods.getNumberOfZombies(this.state.contract)
+        const zombieCount = await contractMethods.getNumberOfZombies()
         let zombies = new Array(zombieCount)
         for(let i = 0; i < zombieCount; i++) {
-            zombies[i] = await contractMethods.getZombieById(this.state.contract, i)
+            zombies[i] = await contractMethods.getZombieById(i)
         }
         this.setState({ zombies: zombies, zombieCount: zombieCount})
     }
 
     async buttonHandler() {
         for (let i = 0; i < this.state.accounts.length; i++) {
-            const zIDArray = await contractMethods.getZombiesByOwner(this.state.contract, this.state.accounts[i])
+            const zIDArray = await contractMethods.getZombiesByOwner(this.state.accounts[i])
             if (zIDArray.length === 0) {
-                await contractMethods.createRandomZombie(this.state.contract, "Derp" + i, this.state.accounts[i], 3000000)
+                await contractMethods.createRandomZombie(this.state.accounts[i],"Derp" + i)
                 await this.updateData()
                 break;
             }
