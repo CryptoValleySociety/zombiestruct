@@ -1,10 +1,6 @@
 const ZombieAttack = artifacts.require("ZombieAttack");
 const SafeMath = artifacts.require("SafeMath");
-const { updateContracts, storeContract } = require('../../src/utils/web3/addresses/contracts');
-
-const updateContractAddress = (contract) => {
-  updateContracts(contract)
-}
+const { storeContract } = require('../../src/utils/web3/addresses/contracts');
 
 module.exports = function(deployer) {
   deployer.deploy(SafeMath)
@@ -13,7 +9,6 @@ module.exports = function(deployer) {
     return deployer.deploy(ZombieAttack);
   })
   .then(() => {
-    updateContractAddress(ZombieAttack.address)
     storeContract(ZombieAttack.address)
   })
   .catch((e) => {
