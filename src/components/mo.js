@@ -8,7 +8,7 @@ class Mo extends Component {
     super(props)
 
     this.state = {
-      data: 'this is my data as a react state',
+      data: '',
       contract: this.props.contract,
       accounts: this.props.accounts,
       zombies: this.props.zombies_arr,
@@ -16,29 +16,22 @@ class Mo extends Component {
     }
   }
 
+  componentDidMount() {
+    const { contract, account } = this.state
+    this.getZombiesByOwner(contract, account)
+  }
 
   async getZombiesByOwner(contract, account) {
     const zombieIds = await contractMethods.getZombiesByOwner(contract, account)
     zombieIds.forEach(async (id) => {
       const zombie = await contractMethods.getZombieById(contract, id)
       this.setState({
-        data: this.state.data + zombie['0'] + '\n' + zombie['1']
+        data: zombie['0'] + '\n' + zombie['1']
       })
       return zombie
     })
 
 
-  }
-
-  async createZombie() {
-    const { contract, account } = this.state
-    try {
-      await contractMethods.createRandomZombie(contract, "Mohammad", account, 3000000)
-    }
-    catch (e) {
-      throw ('Unable to create zombie', e)
-    }
-    this.getZombiesByOwner(contract, account)
   }
 
   async feedOnKitty() {
@@ -55,9 +48,6 @@ class Mo extends Component {
         <button id="button" onClick={() => {
           this.feedOnKitty()
         }}>feedonkitty</button>
-        <button id="button" onClick={() => {
-          this.createZombie()
-        }}>createZombie</button>
       </div>
     );
   }

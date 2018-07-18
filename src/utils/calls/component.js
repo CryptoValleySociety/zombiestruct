@@ -1,8 +1,7 @@
-import web3 from '../web3/providers/index'
-import { contracts } from '../web3/addresses/contracts';
+import web3 from '../web3/providers/index';
 import ZombieAttackAbi from '../../../truffle/build/contracts/ZombieAttack.json';
-import KittyContractAbi from '../../../truffle/build/contracts/KittyContract.json'
-import mainNet from '../web3/providers/main'
+import KittyContractAbi from '../../../truffle/added_contracts/KittyContract.json';
+import mainNet from '../web3/providers/main';
 import {getContractAddress} from '../web3/addresses/contracts';
 
 const initialize = async () => {
@@ -74,5 +73,6 @@ module.exports = {
   feedOnKitty: feedOnKitty,
   getZombieById: getZombieById,
   levelUp: levelUp,
+  getNumberOfZombies: getNumberOfZombies,
   setNewZombieListener: setNewZombieListener
 }
