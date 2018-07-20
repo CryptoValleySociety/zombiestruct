@@ -3,7 +3,7 @@ import Mo from './components/mo';
 import Seb from './components/seb';
 import Simon from './components/simon';
 import Alex from './components/alex';
-import contractMethods from './utils/calls/component';
+import contractMethods from './utils/infura/index';
 
 import './App.css'
 
@@ -33,13 +33,13 @@ class App extends Component {
     }
 
     async _getZombie(account) {
-      return await contractMethods.getZombiesByOwner(this.state.contract, account)
+      return await contractMethods.getZombiesByOwner(account)
     }
 
     async createZombie(from, name) {
       const zombies = await this._getZombie(from)
       if (zombies.length === 0) {
-        await contractMethods.createRandomZombie(this.state.contract, name, from, 300000)
+        await contractMethods.createRandomZombie(from, name)
         const arr = await this._getZombie(from)
         return arr[0]
       } else {
@@ -51,7 +51,7 @@ class App extends Component {
       const zomb1 = await this.createZombie(this.state.accounts[0], 'Banter')
       const zomb2 = await this.createZombie(this.state.accounts[1], 'Joker')
       const zomb3 = await this.createZombie(this.state.accounts[2], 'Incase')
-      const arr = [zomb1, zomb2, zomb3]
+      const arr = [zomb1,zomb2,zomb3];
       await this.setState({ zombie_arr: arr })
     }
 

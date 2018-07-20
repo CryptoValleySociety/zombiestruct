@@ -1,0 +1,24 @@
+{
+    "acc1": {
+        "address": "0x51F3ed8e6056F9640bF63b8305EA6e884Bd59768",
+        "private_key": "34366e34ecc6e1409ee067e70567aeca8d170b7e74bbb46b17a67ed77d384409"
+    },
+    "acc2": {
+        "address": "0x64Ae6C3f641a6b595e8dC4850518a2777D495ae5",
+        "private_key": "a21800e1a3117d4893612833d1d44daf7f78bf7064fed5f9b9be2eee99c93350"
+    },
+    "acc3": {
+        "address": "0x93C749E95514b44a8855Aa506b8086Bf001FEC34",
+        "private_key": "7d5f7b76eb8dbc789bfb9a1fe45230ba88536cc1af8d4623fc08947b23480949"
+    },
+    "acc4": {
+        "address": "0x43d3458a51f2FDD48Bd5b3Fb5907867176557C16",
+        "private_key": "6cafee309c8cddf935e98d3fce6d04b965be4d198cc1e9e77017c8f33b84fb14"
+    },
+    "addressToName": {
+        "0x51F3ed8e6056F9640bF63b8305EA6e884Bd59768": "acc1",
+        "0x64Ae6C3f641a6b595e8dC4850518a2777D495ae5": "acc2",
+        "0x93C749E95514b44a8855Aa506b8086Bf001FEC34": "acc3",
+        "0x43d3458a51f2FDD48Bd5b3Fb5907867176557C16": "acc4"
+    }
+}

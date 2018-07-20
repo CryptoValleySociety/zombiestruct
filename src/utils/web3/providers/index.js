@@ -1,7 +1,7 @@
 const testrpc = require('./testrpc');
 const rinkeby = require('./rinkeby');
 
-const test = true;
+const test = false;
 let web3;
 
 if(test) {

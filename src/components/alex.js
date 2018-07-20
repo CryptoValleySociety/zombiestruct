@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import contractMethods from '../utils/calls/component';
+import contractMethods from '../utils/infura/index';
 
 import '../App.css'
 
@@ -16,21 +16,22 @@ class Alex extends Component {
         }
     }
 
-    async _attack(from, gas, _zombieId, _toId) {
-        return await contractMethods.attack(this.state.contract, from, gas, _zombieId, _toId)
+    async _attack(from, _zombieId, _toId) {
+        return await contractMethods.attack(from, _zombieId, _toId)
     }
 
     async attack() {
-        const res = await contractMethods.attack(this.state.contract, this.state.accounts[0], 300000, this.state.zombie_one, this.state.zombie_two)
-        await this.setState({ winLoss: res})
+        this.setState({winLoss: "awaiting blockchain response"})
+        const res = await contractMethods.attack(this.state.accounts[0], this.state.zombie_one, this.state.zombie_two)
+        await this.setState({ winLoss: res.blockNumber})
     }
 
     render() {
         return (
             <div className="segment" id="alex">
                 <h1>Alex</h1>
-                <p id="data">WIN/LOSS COUNT:  {this.state.winLoss}</p>
-                <button id="button" onClick={() => { this.attack() }}></button>
+                <p id="data">ATTACK HAPPENED ON BLOCK:  {this.state.winLoss}</p>
+                <button id="button" onClick={() => { this.attack() }}>Attack</button>
             </div>
         );
     }

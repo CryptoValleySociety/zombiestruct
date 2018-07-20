@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import contractMethods from '../utils/calls/component';
+import contractMethods from '../utils/infura/index';
 
 import '../App.css'
 
@@ -17,28 +17,21 @@ class Simon extends Component {
     }
 
     componentDidMount() {
-      this.setListener()
-      this.showZombie()
-    }
-
-    setListener() {
-      contractMethods.setNewZombieListener(this.state.contract, async (event) => {
-        this.setState({ zombieId: event.returnValues.zombieId })
-      });
+        this.showZombie()
     }
 
     async showZombie() {
-      const zombie = await contractMethods.getZombieById(this.state.contract, this.state.zombie_one);
-      const zName = zombie.name;
-      const zLevel = zombie.level;
-      const zDna = zombie.dna
-      this.setState({ data: "Your zombie is named " + zName + ", has a dna of " + zDna + " and is of level " + zLevel });
+        const zombie = await contractMethods.getZombieById(this.state.zombie_one);
+        const zName = zombie.name;
+        const zLevel = zombie.level;
+        const zDna = zombie.dna
+        this.setState({ data: "Your zombie is named " + zName + ", has a dna of " + zDna + " and is of level " + zLevel });
     }
 
     async levelUp() {
-      await contractMethods.levelUp(this.state.contract, this.state.zombie_one, this.state.accounts[0])
-      await this.showZombie();
-
+        this.setState({ data: "Your zombies level is updating, blockchain takes time...." });
+        await contractMethods.levelUp(this.state.accounts[0],this.state.zombie_one)
+        await this.showZombie();
     }
 
     render() {
